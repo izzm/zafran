@@ -39,6 +39,11 @@ ActiveAdmin.register Order do
     end
 
     f.inputs :info do
+      f.input :delivery_type, :as => :select, 
+        :collection => {
+          I18n.t('active_admin.status_tags.order.delivery') => 'delivery', 
+          I18n.t('active_admin.status_tags.order.manual') =>'manual'
+        }
       f.input :address
       f.input :discount
       f.input :comment

@@ -51,7 +51,7 @@
         <%= link_to image_tag('site/logo.jpg'), root_path %>
       </div>
       <div class="contacts">
-        8 (495)<span class="number_phone">743-23-09, 398-43-23</span><br />
+        <%=raw StaticPage.find_by_url_path('settings/phone_top').try(:content) %><br />
         <p>
           <%= link_to "Форма обратной связи", "#", :class => "feedback_link" %>
         </p>
@@ -149,25 +149,7 @@
 <div id="footer"><!--footer-->
   <div class="footer">
     <div class="foot_left">
-      <span class="copyright">© Oltis-lux.com | 2011-2012</span>
-      <div class="foot_contacts">Звоните нам:
-        <p class="foot_numb">
-          <span class="code_phone">8 (495)</span>
-          <span class="number_phone">743-23-09</span><br />
-          <span class="number_phone second_num">398-43-23</span>
-        </p>
-        
-        <p>Пишите нам:<br />
-          <%= mail_to 'info@oltis-lux.com' %>
-        </p>
-      </div>
-    
-      <div class="scoial_settings">
-        <%= link_to image_tag("site/icon_vk.png"), "#" %>
-        <%= link_to image_tag("site/icon_facebook.png"), "#" %>
-        <%= link_to image_tag("site/icon_twitter.png"), "#" %>
-        <%= link_to image_tag("site/icon_google.png"), "#" %>
-      </div>
+      <%=raw StaticPage.find_by_url_path('settings/info_bottom').try(:content) %><br />
     </div>
   
     <div class="footer_menu">
