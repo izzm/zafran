@@ -73,7 +73,7 @@
 
   <div class="list_pages">
     <% (@pages || []).each do |page| -%>
-      <div class="category_title"><%= page.title %></div>
+<!--      <div class="category_title"><%= page.title %></div>-->
       <div class="category_preview"><%= link_to strip_tags(page.content)[0..100], static_page_path(page.url_path) %>...</div>
     <% end -%>
   </div>
