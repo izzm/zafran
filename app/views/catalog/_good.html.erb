@@ -6,6 +6,6 @@
   <%= link_to image_tag(image_url || "site/similar.jpg", :alt => good.name), good_url(:path => category.url_path, :id => good.id) %><br />
   <%= link_to good.name, good_url(:path => category.url_path, :id => good.id) %><br />
   <% p = good.parameters[1] || good.parameters[0] -%>
-  <%= p['name'] %> (<%= p['unit'] %>, мм): <%= p['value'] %>
+  <%= p['name'] %> (<%= p['unit'] %>, мм): <br><%= p['value'] %>
   <span class="price"><%= number_to_currency(good.price) %></span>
 </li>
