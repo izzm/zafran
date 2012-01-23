@@ -1399,3 +1399,11 @@ span.capthca {
 #big_lightbox_link img {
   border: 0px none;
 }
+
+#good_image_zoom {
+  height: 270px;
+}
+
+#good_image_zoom img {
+  margin: 0px auto;
+}
