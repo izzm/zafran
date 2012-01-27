@@ -32,7 +32,7 @@
 
 <div id="login_message" style="display:none;">
 <p>
-  Для просмотра избранных квартир, вам необходимо<br>
+  Для просмотра избранных товаров, вам необходимо<br>
 <%= link_to 'зарегистрироваться', new_customer_registration_path  %> или <%= link_to 'авторизоваться', new_customer_session_path %>
 </p>
 <p>
@@ -54,7 +54,11 @@
   <div class="product_photo">
     <% attachment = @good.attachments.main.first ||
                     @good.attachments.first -%>
-    <%= link_to image_tag(attachment.image.url(:big)), attachment.image.url(:original), :class => 'cloud-zoom', :id => 'good_image_zoom', :rel => "adjustX: 10, adjustY:-4, softFocus:true" %>
+    <div class="main_product_photo_wrapper">
+      <div class="main_product_photo">
+        <%= link_to image_tag(attachment.image.url(:big)), attachment.image.url(:original), :class => 'cloud-zoom', :id => 'good_image_zoom', :rel => "adjustX: 10, adjustY:-4, softFocus:true, zoomWidth: 350, zoomHeight: 263" %>
+      </div>
+    </div>
     
     <%= link_to image_tag('site/zoom_icon.png'), attachment.image.url(:original), :id => 'big_lightbox_link' %>
     <ul>

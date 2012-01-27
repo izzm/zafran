@@ -14,7 +14,9 @@
         <div class="border">
           <span class="title_prod_wide"><%= link_to good.name, good_path(:path => good.category.url_path, :id => good.id) %></span>
           <span class="articul_prod"><%= good.articul %></span>
-          <span class="photo_prod"><%= link_to image_tag(good.attachments.first.image.url(:cart)), good_path(:path => good.category.url_path, :id => good.id) %></span>
+          
+          <% image_url = (good.attachments.main.first || good.attachments.first).image.url(:cart) rescue nil -%>
+          <span class="photo_prod"><%= link_to image_tag(image_url || "site/similar_compare.jpg"), good_path(:path => good.category.url_path, :id => good.id) %></span>
           <span class="price_prod"><%= number_to_currency(good.price) %></span>
           <span class="delet_prod">
             <%= link_to image_tag("site/cart_prod_delet.png"), wishlist_remove_good_path(:good_id => good.id), :method => :post %>

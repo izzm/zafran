@@ -1404,6 +1404,23 @@ span.capthca {
   height: 270px;
 }
 
-#good_image_zoom img {
-  margin: 0px auto;
+.product_photo {
 }
+
+.main_product_photo_wrapper {
+  position: relative;
+  height: 265px;
+}
+
+.main_product_photo {
+  position: absolute;
+  margin-left: 176px;
+}
+
+#wrap {
+  left: -50%;
+}
+
+/*#good_image_zoom img {
+  margin: 0px auto;
+}*/

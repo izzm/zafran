@@ -12,7 +12,7 @@
         <% goods[low...high].each do |good| -%>
           <div class="items first_item">
             <% category = good.category -%>
-            <% image_url = good.attachments.first.image.url(:compare) rescue nil -%>
+            <% image_url = (good.attachments.main.first || good.attachments.first).image.url(:compare) rescue nil -%>
             
             <%= link_to image_tag(image_url || "site/similar_compare.jpg", :alt => good.name), good_url(:path => category.url_path, :id => good.id) %><br />
             <%= link_to good.name, good_url(:path => category.url_path, :id => good.id) %>

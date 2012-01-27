@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
   }
   search_methods :articul_contains
 
-  before_save :assign_number
+  before_create :assign_number
   after_create :set_customer_first_order
 
   validates :delivery_type, :presence => true

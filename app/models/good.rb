@@ -73,7 +73,7 @@ class Good < ActiveRecord::Base
   end
   
   def attachment_styles
-    { :preview => "219x165#", :big => "350x263", :small => "66x66#", :cart => "101x80", :compare => "184x111#" } 
+    { :preview => "219x165", :big => "350x263", :small => "66x66#", :cart => "101x80", :compare => "184x111#" } 
   end
 
   def status
