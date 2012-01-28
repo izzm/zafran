@@ -16,6 +16,9 @@ ru:
         comment: "Комментарий покупателя"
         canceled: "Заказ отменён"
         discount: "Скидка (%)"
+    actions:
+      order:
+        add_good: "Добавить товар"
   active_admin:
     titles:
       order:
@@ -26,6 +29,11 @@ ru:
         invoice: "Состав заказа"
         discount: "Скидка:"
         total_price: "Итого:"
+    flashes:
+      order:
+        good_not_found: "Товар не найден"
+        good_add_success: "Товар успешно добавлен"
+        good_already_present: "Товар уже есть в заказе"
     filters:
       order:
         articul: "Артикул товара"
@@ -39,6 +47,7 @@ ru:
       in_progress: "В обработке"
       complete: "Завершенные"
       canceled: "Отмененные"
+      unknown_order_state: "Статус не проставлен"
 
   formtastic:
     labels:

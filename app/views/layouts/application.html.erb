@@ -98,6 +98,7 @@
           <h3 class="lightblue">Личный кабинет</h3>
           <ul class="list_catalog">
             <li class="<%= current_page?(edit_customer_registration_path) ? 'active_prod' : '' %>"><%= link_to "Мои данные", edit_customer_registration_path%></li>
+            <li class="<%= current_page?(cart_path) ? 'active_prod' : '' %>"><%= link_to "Моя корзина", cart_path %></li>
             <li class="<%= current_page?(wishlist_path) ? 'active_prod' : '' %>"><%= link_to "Мой Wish List", wishlist_path %></li>
             <li class="<%= current_page?(cart_history_path) ? 'active_prod' : '' %>"><%= link_to "История заказов", cart_history_path %></li>
             <li><%= link_to "Выход", destroy_customer_session_path, :method => :delete %></li>

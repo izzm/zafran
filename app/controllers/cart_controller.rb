@@ -53,8 +53,9 @@ class CartController < ApplicationController
     @order.order_goods_attributes = session[:cart]
     @order.total_price = session[:cart_price]
     @order.customer = current_customer
+    @order.state = Order::NEW_ORDER
 
-    if @order.save
+    if @order.save!
       flash[:order_id] = @order.id
       session_cart_clear
       redirect_to cart_purchase_complete_path

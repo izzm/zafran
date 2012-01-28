@@ -36,6 +36,10 @@ ActiveAdmin.register Order do
     f.inputs :process do
       f.input :delivery_at, :as => :datepicker, :format => "%d.%m.%Y"
       f.input :checked_out_at, :as => :datepicker, :format => "%d.%m.%Y"
+      f.input :state, :as => :select, 
+              :collection => Hash[Order::STATES.map { |name| 
+                [I18n.t("active_admin.scopes.#{name}"), name] }
+              ]
     end
 
     f.inputs :info do
@@ -54,6 +58,24 @@ ActiveAdmin.register Order do
     end
 
     f.buttons
+  end
+
+  member_action :add_good, :method => :post do
+    @order = Order.find(params[:id])
+    @good = Good.visible.find_by_articul(params[:good_articul])
+    
+    if @good.nil? || params[:good_articul].blank?
+      flash[:error] = I18n.t('active_admin.flashes.order.good_not_found')
+    else
+      if @order.goods.include? @good  
+        flash[:error] = I18n.t('active_admin.flashes.order.good_already_present')
+      else
+        @order.goods = (@order.goods << @good)
+        @order.recalculate_price!
+        flash[:notice] = I18n.t('active_admin.flashes.order.good_add_success')
+      end
+    end
+    redirect_to admin_order_path(@order)
   end
 
   show :title => lambda{ |order| I18n.t('active_admin.titles.order.show', :number => order.number) } do
@@ -84,6 +106,11 @@ ActiveAdmin.register Order do
           td number_to_currency(order.total_price_with_discount)
         end
       end
+
+      form_tag add_good_admin_order_path(order) do
+        text_field_tag(:good_articul) + 
+        submit_tag(I18n.t('activerecord.actions.order.add_good'))
+      end
     end
 
     panel I18n.t('active_admin.titles.order.info') do
@@ -91,7 +118,13 @@ ActiveAdmin.register Order do
         row :created_at
         row :delivery_at
         row :checked_out_at
-        row(:state) { I18n.t("active_admin.scopes.#{order.state}") }
+        row(:state) { 
+          if order.state.blank?
+            I18n.t("active_admin.scopes.unknown_order_state")
+          else
+            I18n.t("active_admin.scopes.#{order.state}") 
+          end
+        }
         row(:delivery_type) { I18n.t("active_admin.status_tags.order.#{order.delivery_type}") }
         row :address
         row :comment
