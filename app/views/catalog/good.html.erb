@@ -60,7 +60,7 @@
       </div>
     </div>
     
-    <%= link_to image_tag('site/zoom_icon.png'), attachment.image.url(:original), :id => 'big_lightbox_link' %>
+    <%= link_to(image_tag('site/zoom_icon.png'), attachment.image.url(:original), :id => 'big_lightbox_link') unless attachment.nil? %>
     <ul>
       <% @good.attachments.each do |attachment| -%>
         <li><%= link_to image_tag(attachment.image.url(:small)), attachment.image.url(:original), :class => 'cloud-zoom-gallery', :rel => "useZoom: 'good_image_zoom', smallImage: '#{attachment.image.url(:big)}' " %></li>
