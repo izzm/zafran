@@ -56,7 +56,7 @@
                     @good.attachments.first -%>
     <div class="main_product_photo_wrapper">
       <div class="main_product_photo">
-        <%= link_to image_tag(attachment.image.url(:big)), attachment.image.url(:original), :class => 'cloud-zoom', :id => 'good_image_zoom', :rel => "adjustX: 10, adjustY:-4, softFocus:true, zoomWidth: 350, zoomHeight: 263" %>
+        <%= link_to image_tag(attachment.image.url(:big)), attachment.image.url(:original), :class => 'cloud-zoom', :id => 'good_image_zoom', :rel => "adjustX: 10, adjustY:-4, softFocus:true, zoomWidth: 350, zoomHeight: 263" unless attachment %>
       </div>
     </div>
     
