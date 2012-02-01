@@ -5,6 +5,10 @@ ActiveAdmin.register Good do
 
   form :partial => 'form'
   #scope :sorted, :default => true
+  
+  action_item :only => [:new, :edit] do
+    link_to('К списку товаров', :action => :index)
+  end
 
   index do
     column :name do |good|
