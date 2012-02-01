@@ -5,6 +5,11 @@ ru:
         format: "%n %u"
         unit: "руб."
         precision: 0
+
+  errors:
+    messages:
+      not_saved: "Невозможно сохранить запись"
+
   visible: отображается
   invisible: скрыта
   are_you_shure: Вы уверены?
@@ -22,10 +27,11 @@ ru:
       size: "Размер"
   order:
     state:
-      new_order: "Новый заказ"
+      new_orders: "Новый заказ"
       complete: "Выполенен"
       in_progress: "В процессе"
       canceled: "Отменён"
+      unknown_order_state: "Статус неизвестен"
 
   customer_email:
     subject: Интернет-магазин Oltis-Lux.com

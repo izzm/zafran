@@ -31,7 +31,7 @@
       <span class="articul_prod"><%= Russian.strftime(order.created_at, "%d.%m.%Y") %></span>
       <span class="photo_prod"><%= order.order_goods.count %></span>
       <span class="price_prod"><%= order.total_price %></span>
-      <span class="delet_prod"><%=t "order.state.#{order.state}" %></span>
+      <span class="delet_prod"><%=t "order.state.#{order.state || 'unknown_order_state'}" %></span>
 
       <ul class="order_expand" id="order_expand_<%= order.id %>" style="display: none;">
         <li class="order_title">

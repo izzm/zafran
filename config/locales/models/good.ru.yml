@@ -16,6 +16,9 @@ ru:
     titles:
       good:
         tree: "Структура каталога"
+    flashes:
+      good:
+        created: "Товар успешно создан"
     actions:
       good:
         destroy: "Удалить"

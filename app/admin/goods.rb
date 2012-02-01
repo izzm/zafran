@@ -29,7 +29,15 @@ ActiveAdmin.register Good do
     end
 
     def show
-      redirect_to admin_category_goods_path
+      @good = Good.find_by_id(params[:id])
+
+      if @good.nil?
+        redirect_to admin_category_goods_path(params[:category_id])
+      else
+        @category = @good.category
+        flash[:notice] = I18n.t('active_admin.flashes.good.created')
+        redirect_to edit_admin_category_good_path(@category, @good)
+      end
     end
   end
 
