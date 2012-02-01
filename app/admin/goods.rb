@@ -7,7 +7,7 @@ ActiveAdmin.register Good do
   #scope :sorted, :default => true
   
   action_item :only => [:new, :edit] do
-    link_to('К списку товаров', :action => :index)
+    link_to(I18n.t('active_admin.actions.good.index'), :action => :index)
   end
 
   index do

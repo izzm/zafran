@@ -22,6 +22,7 @@ ru:
     actions:
       good:
         destroy: "Удалить"
+        index: "К списку товаров"
     status_tags:
       good:
         visible: "Да"
