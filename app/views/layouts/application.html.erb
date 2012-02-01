@@ -94,7 +94,7 @@
           </p>
         </div>
         <div class="catalog">
-          <% if !current_customer.nil? -%>
+          <% if !current_customer.nil? && show_lk -%>
           <h3 class="lightblue">Личный кабинет</h3>
           <ul class="list_catalog">
             <li class="<%= current_page?(edit_customer_registration_path) ? 'active_prod' : '' %>"><%= link_to "Мои данные", edit_customer_registration_path%></li>

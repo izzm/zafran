@@ -959,7 +959,8 @@ ul.compare_list li a{}
 	_overflow:hidden; /* для ие6, чтобы не умещающиеся в нем элементы не раздвигали блок */
 	vertical-align:top;}
 .first_item{
-	padding-bottom:15px;}
+	padding-bottom:15px;
+  text-align: center;}
 .first_item img{
 	margin-bottom:9px;
 	border:1px solid #c2b099;
