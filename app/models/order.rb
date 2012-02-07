@@ -81,9 +81,8 @@ protected
   def assign_number
     order_of_day = self.class.where("date_trunc('day', created_at) = date_trunc('day', TIMESTAMP ?)", Date.today).count + 1
 
-    self.number = Date.today.strftime("%d/%m/%y") +
-                  "-" + order_of_day.to_s + 
-                  "-" + self.delivery_type_code
+    self.number = Date.today.strftime("%d%m%y") +
+                  "-" + order_of_day.to_s
   end
 
   def delivery_type_code
