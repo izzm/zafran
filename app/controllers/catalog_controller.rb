@@ -77,6 +77,7 @@ class CatalogController < ApplicationController
     if params[:single_search] && params[:single_search].size >= 3
       @search_goods_name = Good.search :name_contains => params[:single_search]
       @search_goods_description = Good.search :description_contains => params[:single_search]
+      @search_goods_articul = Good.search :articul_contains => params[:single_search]
       
       @search_category_name = Category.search :name_contains => params[:single_search]
       @search_category_description = Category.search :description_contains => params[:single_search]
@@ -99,6 +100,7 @@ class CatalogController < ApplicationController
         @search = @search_goods_name
         @goods = @search_goods_name.relation.visible#.page(@page).per(@perpage)
         @goods += @search_goods_description.relation.visible
+        @goods += @search_goods_articul.relation.visible
 
         @categories = @search_category_name.relation.visible
         @categories += @search_category_description.relation.visible
