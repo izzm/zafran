@@ -43,6 +43,21 @@ ActiveAdmin.register Good do
         redirect_to edit_admin_category_good_path(@category, @good)
       end
     end
+
+    def destroy
+      @good = Good.find_by_id(params[:id])
+
+      if !@good.nil?
+        if @good.order_goods.count > 0
+          flash[:error] = I18n.t('active_admin.flashes.good.has_orders')
+        else
+          flash[:notice] = I18n.t('active_admin.flashes.good.destroyed')
+          @good.destroy
+        end
+      end
+      
+      redirect_to admin_category_goods_path(params[:category_id])
+    end
   end
 
   sidebar I18n.t('active_admin.titles.good.tree') do |page|

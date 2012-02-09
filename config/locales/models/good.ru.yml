@@ -19,6 +19,8 @@ ru:
     flashes:
       good:
         created: "Товар успешно создан"
+        has_orders: "Товар имеется в заказах. Удаление невозможно."
+        destroyed: "Товар успешно удалён"
     actions:
       good:
         destroy: "Удалить"

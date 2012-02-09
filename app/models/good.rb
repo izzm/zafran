@@ -17,7 +17,7 @@ class Good < ActiveRecord::Base
 
   has_many :order_goods,
            :dependent => :restrict
-  has_many :goods, :through => :order_goods
+  has_many :orders, :through => :order_goods
 
   #default_scope order('position ASC')
   scope :visible, where(:visible => true)
