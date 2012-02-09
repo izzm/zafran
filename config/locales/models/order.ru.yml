@@ -29,6 +29,9 @@ ru:
         invoice: "Состав заказа"
         discount: "Скидка:"
         total_price: "Итого:"
+    actions:
+      order:
+        destroy: "Удалить"
     flashes:
       order:
         good_not_found: "Товар не найден"

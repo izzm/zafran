@@ -30,6 +30,10 @@ ActiveAdmin.register Order do
     column(:total_price) { |order| 
       number_to_currency order.total_price 
     }
+    column { |order|
+      link_to I18n.t('active_admin.actions.order.destroy'), admin_order_path(order), :method => :delete, :confirm => t('are_you_shure')
+
+    }
   end
 
   form do |f|
