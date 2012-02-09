@@ -1,5 +1,5 @@
 ActiveAdmin.register Order do
-  actions :index, :show, :edit, :update
+  actions :index, :show, :edit, :update, :destroy
 
   filter :total_price
   filter :number
