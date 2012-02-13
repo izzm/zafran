@@ -94,8 +94,8 @@
         <% if p['name'] == 'Размеры' -%>
           <strong><%= p['name'] %> (мм):</strong><br>
           <% sizes = p['value'].split('*') -%>
-          <strong>Ширина</strong>: <%= sizes[0] %>&nbsp;
-          <strong>Глубина</strong>: <%= sizes[1] %>&nbsp;
+          <strong>Длина</strong>: <%= sizes[0] %>&nbsp;
+          <strong>Ширина</strong>: <%= sizes[1] %>&nbsp;
           <strong>Высота</strong>: <%= sizes[2] %>
         <% else -%>
           <strong><%= p['name'] %><%= " (#{p['unit']})" if !p['unit'].blank? %>:</strong> <%= p['value'] %>
