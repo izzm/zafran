@@ -40,7 +40,7 @@
         <span class="status <%= cat.visible ? 'ok' : 'error' %>"><%= t("active_admin.status_tags.category.#{cat.status}") %></span>
       </td>
       <td>
-        <%= link_to t('active_admin.actions.category.destroy'), admin_category_path(cat), :method => :delete, :confirm => t('are_you_shure') %>
+        <%= link_to t('active_admin.actions.category.destroy'), admin_category_path(cat), :method => :delete, :confirm => t('are_you_shure_with_goods') %>
       </td>
     </tr>
   <% end %>

@@ -11,7 +11,7 @@ class Category < ActiveRecord::Base
 
 	serialize :parameters
 	
-  has_many :goods  
+  has_many :goods, :dependent => :destroy
   has_and_belongs_to_many :virtual_goods, :class_name => 'Good'
     
   has_many :attachments, 

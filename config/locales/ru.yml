@@ -13,6 +13,7 @@ ru:
   visible: отображается
   invisible: скрыта
   are_you_shure: Вы уверены?
+  are_you_shure_with_goods: "Вы уверены? Все товары в данной категирии будут удалены!"
 
   add: Добавить
   choose: Выбрать
