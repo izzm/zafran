@@ -128,17 +128,7 @@
   <h2>Похожие изделия</h2>
   
   <ul class="list_product">
-    <% similar.each do |good| -%>
-      <li>
-        <% image_url = good.attachments.first.image.url(:preview) rescue nil -%>
-        <%= link_to image_tag(image_url || "site/similar.jpg", :alt => good.name), 
-                               good_url(:path => good.category.url_path, :id => good.id) %><br />
-        <%= link_to good.name, good_url(:path => good.category.url_path, :id => good.id) %><br />
-        <% p = good.parameters[1] || good.parameters[0] -%>
-        <%= p['name'] %>, <%= p['unit'] %>: <%= p['value'] %>
-        <span class="price"><%= number_to_currency(good.price) %></span>
-      </li>
-    <% end -%>
+    <%= render :partial => 'good', :collection => similar %>
   </ul>
 </div>
 <% end -%>
