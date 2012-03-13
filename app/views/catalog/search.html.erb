@@ -15,6 +15,10 @@
         <%= f.label :price_lte, "Цена до" %>
         <%= f.text_field :price_lte, :class => "standart_inptxt" %>
       </p>
+      <p>
+        <%= f.label :category_name_contains, "Предмет мебели" %>
+        <%= f.text_field :category_name_contains, :class => "standart_inptxt" %>
+      </p>
     </div>
     
     <div class="form_right">
@@ -29,6 +33,10 @@
       <p>
         <%= f.label :articul_contains, "Артикул" %>
         <%= f.text_field :articul_contains, :class => "standart_inptxt" %>
+      </p>
+      <p>
+        <%= f.label :good_parameters_value_eq, "Серия" %>
+        <%= f.select :good_parameters_value_eq, GoodParameter.value_list('Серия'), {}, {:prompt => "Все"} %>
       </p>
       
       <p class="adv_search_btn">

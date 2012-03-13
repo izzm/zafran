@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120128093146) do
+ActiveRecord::Schema.define(:version => 20120313161109) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -108,29 +108,6 @@ ActiveRecord::Schema.define(:version => 20120128093146) do
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
 
-  create_table "clients", :force => true do |t|
-    t.string   "email",                                 :default => "",    :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "name"
-    t.string   "company"
-    t.boolean  "corporate",                             :default => false
-    t.date     "first_order"
-    t.string   "phone"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "clients", ["email"], :name => "index_clients_on_email", :unique => true
-  add_index "clients", ["reset_password_token"], :name => "index_clients_on_reset_password_token", :unique => true
-
   create_table "customers", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
@@ -169,6 +146,17 @@ ActiveRecord::Schema.define(:version => 20120128093146) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
   end
+
+  create_table "good_parameters", :force => true do |t|
+    t.integer  "good_id"
+    t.string   "name"
+    t.string   "value"
+    t.string   "unit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "good_parameters", ["good_id"], :name => "index_good_parameters_on_good_id"
 
   create_table "goods", :force => true do |t|
     t.string   "name"

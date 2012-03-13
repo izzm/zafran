@@ -8,6 +8,9 @@ class Good < ActiveRecord::Base
   belongs_to :category
   has_and_belongs_to_many :virtual_categories, :class_name => 'Category'
   
+  has_many :good_parameters, 
+           :dependent => :destroy
+  
   has_many :attachments, 
            :as => :resource,
            :dependent => :destroy
@@ -48,6 +51,8 @@ class Good < ActiveRecord::Base
   validates :price, :presence => true,
                     :numericality => true 
   
+  before_save :expand_parameters
+  
   VISIBLE = "visible"
   INVISIBLE = "invisible"
 
@@ -83,6 +88,15 @@ class Good < ActiveRecord::Base
 
   def move_possible?(category)
     !category.virtual
+  end
+
+#private
+  def expand_parameters
+    self.good_parameters = []
+    
+    (self.parameters || []).each{ |p|
+      self.good_parameters << GoodParameter.new(p)
+    }
   end
 
 end
