@@ -16,6 +16,12 @@ ActiveAdmin.register Category do
       redirect_to index_tree_admin_categories_path
     end
   end
+  
+  collection_action :recalcualte_all_goods, :method => :get do
+    Good.all.each { |g| g.expand_parameters }
+    
+    render :text => "OK"
+  end
 
   collection_action :index_tree, :method => :get do
     @categories = Category.arrange
