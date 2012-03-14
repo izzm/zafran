@@ -36,7 +36,7 @@
       </p>
       <p>
         <%= f.label :good_parameters_value_eq, "Серия" %>
-        <%= f.select :good_parameters_value_eq, GoodParameter.value_list('Серия'), {}, {:prompt => "Все"} %>
+        <%= f.select :good_parameters_value_eq, GoodParameter.value_list('Серия'), :prompt => "Все" %>
       </p>
       
       <p class="adv_search_btn">
