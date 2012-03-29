@@ -5,14 +5,17 @@ class StaticPage < ActiveRecord::Base
 
   scope :visible, where(:visible => true)
   scope :sorted,  order('position ASC')
-  #scope :nested_set,          order('lft ASC')
-  #scope :reversed_nested_set, order('lft DESC')
+  scope :navigation, visible.where(:show_in_nav => true).sorted
+  scope :site_roots, where(:parent_id => nil)
+  scope :site_children, lambda { |page|
+    where(:parent_id => page.id).sorted.navigation
+  }
 
   #default_scope order('position asc')
   has_many :attachments, 
            :as => :resource,
            :dependent => :destroy
-
+  
   validates :title, :presence => true, 
                     :length => { :maximum => 255 }
   validates :content, :presence => true 
@@ -27,11 +30,22 @@ class StaticPage < ActiveRecord::Base
   end
   
   def attachment_styles
-    { :slider => "698x374#", :main_page_images => "160x168#" } 
+    { :banner => "224x109#"} 
   end
 
   def status
     self.visible ? VISIBLE : INVISIBLE
   end
+  
+  def show_in_nav_status
+    self.show_in_nav ? VISIBLE : INVISIBLE
+  end
 
+  def show_in_nav
+    self.visible && super
+  end
+  
+  def use_absolute_path?
+    !redirect_url.blank?
+  end
 end

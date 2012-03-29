@@ -41,6 +41,7 @@ gem "simple_captcha", :git => 'git://github.com/izzm/simple-captcha.git'
 
 # Use unicorn as the web server
 # gem 'unicorn'
+gem 'thin'
 
 # Deploy with Capistrano
 # gem 'capistrano'

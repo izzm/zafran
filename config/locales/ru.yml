@@ -26,6 +26,7 @@ ru:
       color: "Цвет"
       cloth: "Материал"
       size: "Размер"
+      weight: "Вес"
   order:
     state:
       new_orders: "Новый заказ"

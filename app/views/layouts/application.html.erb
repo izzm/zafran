@@ -1,187 +1,174 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <%= display_meta_tags :site => 'Oltis-lux - мебельный интернет-магазин' %>
+  <%= display_meta_tags :site => 'Zafran' %>
   <link rel="icon" href="<%= image_path 'site/favicon.ico' %>" type="image/x-icon">
   <%= stylesheet_link_tag    "application" %>
   <!--[if lte IE 6]>
   <%= javascript_include_tag "DD_belatedPNG.js" %>
   <script>
-        DD_belatedPNG.fix(".iePNG,img, .close_fb, .search_btn, .nivo-prevNav, .nivo-nextNav");
+         DD_belatedPNG.fix(".iePNG,img");
   </script>
   <![endif]-->
-  <!--[if IE]><%= javascript_include_tag "all_ie" %><![endif]-->
+  <!--[if IE]><%= stylesheet_link_tag "all_ie" %><![endif]-->
   <%= javascript_include_tag "application" %>
   <%= javascript_tag do %>
     <%= yield :page_javascript %>
   <% end %>
+  
+  <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?49"></script>
+
+  <script type="text/javascript">
+    VK.init({apiId: 2867553, onlyWidgets: true});
+  </script>
+  
   <%= csrf_meta_tags %>
 </head>
-<body bgcolor="#0a1e43">
-
-<div class="top_nav">
-  <div class="top_nav_inner">
-    <ul class="nav_list">
-    <% if current_customer.nil? -%>
-      <li class="name_person"><%= image_tag "site/flower.png" %></li>
-      <li class="first"><%= link_to "Вход в личный кабинет", new_customer_session_path %></li>
-      <%= content_tag :li, link_to("Cравнение: #{session[:compare].values.flatten.size}", catalog_compare_path) if !session[:compare].empty? %>
-    <% else -%>
-      <li class="name_person"><%= image_tag "site/flower.png" %><%= current_customer.name %></li>
-      <li class="first"><%= link_to "Личный кабинет", edit_customer_registration_path %></li>
-      <li><%= link_to "Мой Wish List", wishlist_path %></li>
-      <%= content_tag :li, link_to("Cравнение: #{session[:compare].size}", catalog_compare_path) if !session[:compare].empty? %>
-      <li><%= link_to "Выход", destroy_customer_session_path, :method => :delete %></li>
-    <% end -%>
-    </ul>
-    
-    <div class="cart">
-      <%= image_tag "site/basket_icon.png" %>
-      <% pl = Russian.p(session[:cart_count], 'позиция', 'позиции', 'позиций') -%>
-      <span>Ваш заказ: <%= link_to "#{session[:cart_count]} #{pl}", cart_path %>, на сумму <%= link_to number_to_currency(session[:cart_price]), cart_path %></span>
-    </div>
-  </div>
-</div><!--end_top_nav_inner-->
-
-
-<div id="wrapper">
-  <div id="page"><!--page-->
-    <div id="header"><!--header-->
-      <div class="logo">
-        <%= link_to image_tag('site/logo.jpg'), root_path %>
-      </div>
-      <div class="contacts">
-        <%=raw StaticPage.find_by_url_path('settings/phone_top').try(:content) %><br />
-        <p>
-          <%= link_to "Форма обратной связи", "#", :class => "feedback_link" %>
-        </p>
-          <div class="feedback_block">
-          	<h2><span>Форма быстрой связи</span><a href="#" class="close_fb"></a></h2>
-              <%= form_tag feedback_url, :method => :post do %>
-              	<p><input type="text" name="feedback[name]" value="Ваше имя" class="fb_inp inp_gray" onclick="if(this.value=='Ваше имя'){this.value='';}" onblur="if(this.value==''){this.value='Ваше имя';setcolor(this, '#afafaf')}" onkeydown="setcolor(this,'#000')"/></p>
-                  <p><input type="text" name="feedback[phone]" value="Телефон  (+7 (xxx) xxx-xx-xx)" class="fb_inp inp_gray" onclick="if(this.value=='Телефон  (+7 (xxx) xxx-xx-xx)'){this.value='';}" onblur="if(this.value==''){this.value='Телефон  (+7 (xxx) xxx-xx-xx)';setcolor(this, '#afafaf')}" onkeydown="setcolor(this,'#000')"/></p>
-                  <p class="checkbox_bl"><input type="checkbox" id="check1" name="feedback[callback]" class="styled" /><label for="check1">Перезвоните мне</label></p>
-                  <p><input type="text" name="feedback[email]" value="E-mail (example@company.ru)" class="fb_inp inp_gray" onclick="if(this.value=='E-mail (example@company.ru)'){this.value='';}" onblur="if(this.value==''){this.value='E-mail (example@company.ru)';setcolor(this, '#afafaf')}" onkeydown="setcolor(this,'#000')"/></p>
-                  <p class="txtarea_bl"><label>Сообщение: </label><br /><textarea rows="" cols="" class="" name="feedback[message]"></textarea></p>
-                  <p class="fd_btn"><input type="submit" value="Отправить" class="blue_inp_bg" /></p>
-              <% end %>
+<body>
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+  
+  
+  <span class="line1"></span><span class="line2"></span>
+  <div id="page">
+    <div id="header">
+    	<div class="logo">
+    	  <%= link_to image_tag('site/logo.jpg'), root_path %>
+    	  <span class="logo_slogan">Как он есть...</span>
+    	</div>
+      
+      <div class="head_right">
+        <div class="cart">
+          <div class="cart_top" id="cart_container">
+            <%= render :partial => 'cart/mini'%>
           </div>
-      </div><!--end_contacts-->
+        </div>
+        
+        <div class="contacts">
+          Или просто позвоните нам:
+          <%=raw StaticPage.find_by_url_path('settings/phone').try(:content) %><br />
+        </div>
+      </div><!--.head_right-->
+      <div class="clear"></div>
       
       <div class="menu">
-      	<ul>
-      	  <% first = true -%>
-      	  <% site_main_menu.each do |page| -%>
-    	      <%= content_tag 'li', :class => (first ? 'first' : nil) do %>
-    	        <%= link_to page.title, static_page_path(page.url_path) %>
-            <% end -%>	
-            <% first = false -%>
+        <ul id="jsddm">
+          <% site_main_menu.each_with_index do |menu_item, i| -%>
+            <% if menu_item.children.navigation.empty? -%>
+              <li class="<%= i==site_main_menu.count-1 ? "last" : "" %>">
+                <%= link_to menu_item.title, static_page(menu_item), 
+                      :class => ((@page && @page == menu_item) ? "active" : nil) %>
+              </li>
+            <% else -%>
+              <li class="dropmenu<%= i==site_main_menu.count-1 ? " last" : "" %>">
+                <%= link_to menu_item.title, static_page(menu_item)#, 
+                      #:class => ((@page && @page.self_and_ancestors[1] == menu_item) ? "active" : nil) 
+                %>
+                <div>
+                  <ul>
+                    <% menu_item.children.navigation.each do |submenu_item| -%>
+                      <li>
+                        <%= link_to submenu_item.title, static_page(submenu_item) %>
+                      </li>
+                    <% end -%>
+                  </ul>
+                </div>
+              </li>
+            <% end -%>
           <% end -%>
         </ul>
-      </div><!--end_menu-->
-      <div class="clear"></div>
-    </div><!--end_header-->
+      </div>
+    </div><!--#header-->
     
-    <div id="container"><!--container-->
-      <div class="left_bar">
-        <div class="search">
-          <%= form_tag catalog_search_path, :method => :get do |f| %>
-            <label>Поиск</label><input type="text" name="single_search" class="search_inp" />
-            <input type="submit" value="" class="search_btn" />
-          <% end -%>
-          <p>
-            <%= link_to "Расширенный поиск", catalog_search_path %><%= image_tag "site/blue_arrow.jpg", :class => "blue_arrow" %>
-          </p>
-        </div>
-        <div class="catalog">
-          <% if !current_customer.nil? && show_lk -%>
-          <h3 class="lightblue">Личный кабинет</h3>
-          <ul class="list_catalog">
-            <li class="<%= current_page?(edit_customer_registration_path) ? 'active_prod' : '' %>"><%= link_to "Мои данные", edit_customer_registration_path%></li>
-            <li class="<%= current_page?(cart_path) ? 'active_prod' : '' %>"><%= link_to "Моя корзина", cart_path %></li>
-            <li class="<%= current_page?(wishlist_path) ? 'active_prod' : '' %>"><%= link_to "Мой Wish List", wishlist_path %></li>
-            <li class="<%= current_page?(cart_history_path) ? 'active_prod' : '' %>"><%= link_to "История заказов", cart_history_path %></li>
-            <li><%= link_to "Выход", destroy_customer_session_path, :method => :delete %></li>
+    <div id="container">
+      <div class="leftSide">
+        <div class="left_menu">
+          <h3>Все о шафране</h3>
+          <ul>
+            <% site_extra_menu.each_with_index do |menu_item, i| -%>
+              <li class="<%= i==0 ? "first" : "" %>">
+                <%= link_to menu_item.title, static_page(menu_item) %>
+              
+                <% if @page && @page.self_and_ancestors[1] == menu_item && !menu_item.children.navigation.empty? -%>
+                  <ul>
+                    <% menu_item.children.navigation.each do |submenu_item| -%>
+                      <li>
+                        <%= link_to submenu_item.title, static_page(submenu_item) %>
+                      </li>
+                    <% end -%>
+                  </ul>              
+                <% end -%>
+              </li>
+            <% end -%>
           </ul>
-          <% end -%>
-          <% classes = ["brown", "", "blue"] -%>
-          <% anc = @category.try(:self_and_ancestors) || [] -%>
-          <% site_catalog_menu.each do |root_category| -%>
-            <%= content_tag 'h3', root_category.name, :class => classes.shift %>
-            <ul class="list_catalog">
-              <% root_category.children.visible.sorted.each do |category| -%>
-                <% is_current = (category == anc[1]) -%>
-                <%= content_tag 'li', :class => (is_current ? 'active_prod' : nil) do %>
-                  <%= link_to category.name, category_path(category.url_path) %>
-                  <% if is_current -%>
-                    <ul>
-                      <% category_list = root_category.virtual ? 
-                            Category.find_all_by_id(category.virtual_goods.visible.group('goods.category_id').select('goods.category_id')).map{ |c| c.self_and_ancestors[1] }.uniq : 
-                            category.children.visible.sorted -%>
-                      <% category_list.each do |sub_category| -%>
-                        <% is_current_s = root_category.virtual ? 
-                              (sub_category.id == params[:cat_filter].to_i) : 
-                              (sub_category == anc[2]) -%>
-                        <%= content_tag 'li' do %>
-                          <% url = root_category.virtual ? category_path(category.url_path, :cat_filter => sub_category.id) : category_path(sub_category.url_path) -%>
-                          <%= link_to sub_category.name, url, :class => (is_current_s ? 'active_sub' : nil) %>
-                        <% end %>
-                      <% end -%>
-                    </ul>
-                  <% end -%>
-                <% end %>
-              <% end -%>
-            </ul>
-          <% end -%>
-        </div><!--end_catalog-->
-      </div><!--end_left_bar-->
-        
+        </div>
+      </div><!--.leftSide-->
+      
       <div class="content">
+        <div class="social_settings">
+          <ul>
+            <li>Вам нравится шафран?</li>
+            <li>
+              <div class="fb-like" data-href="http://zafran.ru/" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div>
+            </li>
+            <li>
+              <div id="vk_like"></div>
+              <script type="text/javascript">
+                VK.Widgets.Like("vk_like", {type: "button"});
+              </script>
+            </li>
+          </ul>
+        </div>
+          	
         <%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
         <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
         <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
        	<%= yield %>
-      </div><!--end_content-->
+      </div><!--.content-->
       <div class="clear"></div>
-    </div><!--end_container-->
-  </div><!--end_page-->
-</div><!--end_wrapper-->
-
-<div id="footer"><!--footer-->
-  <div class="footer">
-    <div class="foot_left">
-      <%=raw StaticPage.find_by_url_path('settings/info_bottom').try(:content) %><br />
-    </div>
-  
-    <div class="footer_menu">
-     	<ul class="foot_list first_list">
-      	<li class="list_title"><%= link_to "Личный кабинет", edit_customer_registration_path %></li>
-        <li><%= link_to "Личные данные", edit_customer_registration_path %></li>
-        <li><%= link_to "Корзина", cart_path %></li>
-        <li><%= link_to "Wish List", wishlist_path %></li>
-      </ul>
       
-      <% site_catalog_menu.each do |root_category| -%>
-        <ul class="foot_list">
-          <li class="list_title"><%= content_tag 'span', root_category.name, :class => 'nolink' %></li>
-          <% root_category.children.visible.sorted.each do |category| -%>
+    </div><!--#container-->
+    
+    <div class="push"></div>
+  </div><!--#page-->
+  
+  <div id="footer">
+  	<span class="line1"></span>
+  	<span class="line2"></span>
+  	
+  	<div class="footer">
+      <span class="copyright">© Zafran.ru 2009-2012</span>
+      <div class="contacts">
+        Контактный телефон:
+        <%=raw StaticPage.find_by_url_path('settings/phone').try(:content) %>
+      </div>
+      
+      <div class="foot_menu">
+      	<ul>
+      	  <% site_main_menu.each_with_index do |menu_item, i| -%>
             <li>
-              <%= link_to category.name, category_path(category.url_path) %>
-            </li>
+              <%= link_to menu_item.title, static_page(menu_item), 
+                    :class => (i==site_main_menu.count-1 ? "red" : nil) %>
+            </li>            
           <% end -%>
         </ul>
-      <% end -%>
-      
-      <ul class="foot_list">
-        <li class="list_title"><%= link_to "Разделы сайта", root_path %></li>
-    	  <% site_main_menu.each do |page| -%>
-	        <li><%= link_to page.title, static_page_path(page.url_path) %></li>
-        <% end -%>
-      </ul>
-    </div><!--end_footer_menu-->    
-    <div class="clear"></div>
-  </div>
-</div><!--end_footer-->
-
+      </div>
+    </div>
+  </div><!--#footer-->
+  
+  <div id="popup1" class="popup_block cart_popup">
+  	<span class="title2">Вы добавили товар в корзину</span>
+    <p>Теперь Вы можете</p>
+    <p>
+      <%= link_to "Оформить заказ", cart_path %> или
+      <a href="#" class="close nohide">Продолжить выбор</a>
+    </p>
+  </div>        
 </body>
 </html>

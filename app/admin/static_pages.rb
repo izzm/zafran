@@ -12,6 +12,7 @@ ActiveAdmin.register StaticPage do
     def new
       @static_page = StaticPage.new
       @static_page.visible ||= true
+      @static_page.show_in_nav ||= true
     end
     
     def show

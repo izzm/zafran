@@ -28,7 +28,7 @@
                     }, 
                     :prompt => false %>
     <% } -%>
-  <% end %>
+  <% end if false %>
   
   <%= f.inputs :params do %>
     <ul id="parameters_list" class="sortable">
@@ -39,7 +39,7 @@
     </ul>
     
     <%= content_tag( :input, :type => :submit, :value => t('add'), :id => "add_parameter_link") {}%>
-  <% end %>
+  <% end if false %>
 
   <%= f.inputs :order_variants do %>
     <ol class="variants_type_list">
@@ -63,7 +63,7 @@
         </li>
       <% end -%>
     </ol>
-  <% end %>
+  <% end if false %>
 
   <%= f.inputs :similar_goods do %>
     <ol class="variants_type_list">
@@ -84,7 +84,7 @@
         </div>
       </li>
     </ol>
-  <% end %>
+  <% end if false %>
 
 
   <%= f.buttons %>
@@ -95,7 +95,7 @@
 <%= content_tag(:script, :id => 'new_similar', :type => 'text/x-jquery-tmpl') { render :partial => 'similar' } %>
 
 <%= render(:partial => 'admin/extra_attachments/list',
-           :locals => { :object => @good }) if !@good.new_record?  %>
+           :locals => { :object => @good }) if !@good.new_record? && false  %>
 
 <%= render(:partial => 'admin/attachments/list',
            :locals => { :object => @good }) if !@good.new_record?  %>

@@ -2,7 +2,8 @@
 <% value = "" if !defined? value -%>
 <li class="ui-state-default">
   <span class="ui-icon ui-icon-arrowthick-2-n-s sort"></span>
-  <%= text_field_tag "good[variants][#{variant_type || "${variant_type}"}][]", value %>
+  Значение: <%= text_field_tag "good[variants][#{variant_type || "${variant_type}"}][][value]", value.try('[]', 'value') %>
+  Цена: <%= text_field_tag "good[variants][#{variant_type || "${variant_type}"}][][price]", value.try('[]', 'price') %>
   <span class="ui-icon ui-icon-close close"></span>
 </li>
 

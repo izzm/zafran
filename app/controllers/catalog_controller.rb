@@ -1,26 +1,26 @@
 class CatalogController < ApplicationController
   def category
-    @perpage = params[:perpage].to_i > 0 ? params[:perpage].to_i : 20
-    @page = params[:page].to_i > 0 ? params[:page].to_i : 1
-    @cat_filter = params[:cat_filter].to_i
-    search_p = params[:search] || {:meta_sort => 'name.desc'}
-    @search_param = (search_p[:meta_sort] || "name.desc").split('.').first
+    #@perpage = params[:perpage].to_i > 0 ? params[:perpage].to_i : 20
+    #@page = params[:page].to_i > 0 ? params[:page].to_i : 1
+    #@cat_filter = params[:cat_filter].to_i
+    #search_p = params[:search] || {:meta_sort => 'name.desc'}
+    #@search_param = (search_p[:meta_sort] || "name.desc").split('.').first
 
     @category = Category.find(params[:category_id])
-    if @cat_filter > 0
-      @filter_category = Category.find(@cat_filter)
-      @goods = @filter_category.site_goods.
-                visible.includes(:category).
-                page(@page).per(@perpage).
-                has_virtual_category(@category)
-    else
+    #if @cat_filter > 0
+    #  @filter_category = Category.find(@cat_filter)
+    #  @goods = @filter_category.site_goods.
+    #            visible.includes(:category).
+    #            page(@page).per(@perpage).
+    #            has_virtual_category(@category)
+    #else
       @goods = @category.site_goods.#unscoped.
                     visible.includes(:category).
                     page(@page).per(@perpage)
-    end
+    #end
     
-    @search = @goods.search(search_p)
-    params.delete(:category_id)
+    #@search = @goods.search(search_p)
+    #params.delete(:category_id)
   end
 
   def good

@@ -10,17 +10,16 @@ module ApplicationHelper
   # METHODS FOR SITE FRONTEND
   
   def site_main_menu
-    StaticPage.find_by_link('oltis').children.sorted.visible
+    StaticPage.find_by_link('main').children.navigation
   end
   
-  def site_catalog_menu
-    Category.visible.sorted.roots
+  def site_extra_menu
+    StaticPage.find_by_link('extra').children.navigation
   end
-
-  def show_lk
-    current_page?(edit_customer_registration_path) ||
-    current_page?(cart_path) ||
-    current_page?(wishlist_path) ||
-    current_page?(cart_history_path)
+  
+  def static_page(page)
+    page.use_absolute_path? ? 
+      page.redirect_url :
+      static_page_path(page.url_path)
   end
 end

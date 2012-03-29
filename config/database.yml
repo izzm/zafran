@@ -15,9 +15,9 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: oltis
+  database: zafran
   pool: 5
-  username: oltis
+  username: zafran
   password: 1q2w3e
 
   # Connect on a TCP socket. Omitted by default since the client uses a

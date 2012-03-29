@@ -1,17 +1,23 @@
 class SiteController < ApplicationController
   def index
-    @page = StaticPage.root
+    @page = StaticPage.find_by_link('index') || StaticPage.root
     set_meta(@page)
   end
 
   def static_page
     @page = StaticPage.find(params[:page_id])
-    set_meta(@page)
-    
-    begin
-      render :action => @page.link
-    rescue ActionView::MissingTemplate => e
-      logger.info "Use default StaticPage template"
+    if @page.redirect_url.blank?
+      set_meta(@page)
+      
+      template = @page.link
+      begin
+        logger.info "Try #{template} template ..."
+        render :action => template
+      rescue ActionView::MissingTemplate => e1
+        logger.info "Use default StaticPage template"
+      end
+    else
+      redirect_to @page.redirect_url
     end
   end
 

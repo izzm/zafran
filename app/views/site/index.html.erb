@@ -1,46 +1,60 @@
-<div class="slider_wrapper">
-  <div class="ribbon"></div>
-  <div id="slider" class="nivoSlider">
-    <% @page.children.find_by_link('slider').attachments.each do |attachment| -%>
-      <% if attachment.link.blank? -%>
-        <%= image_tag attachment.image.url(:slider), :alt => attachment.name %>
-      <% else -%>
-        <%= link_to image_tag(attachment.image.url(:slider), :alt => attachment.name), attachment.link %>
-      <% end -%>
-    <% end -%>
-  </div>
-</div><!--end_slider-->
 <div class="banners">
   <ul>
-    <% @page.children.find_by_link('images').attachments.each do |attachment| -%>
-      <li>
-        <% if attachment.link.blank? -%>
-          <%= image_tag attachment.image.url(:main_page_images), :alt => attachment.name %>
-        <% else -%>
-          <%= link_to image_tag(attachment.image.url(:slider), :alt => attachment.name), attachment.link %>
-        <% end -%>
+    <% @page.children.find_by_link('banners').children.navigation.each do |banner| %>
+      <li class="<%= banner.link =~ /^banner_video(.*)/ ? "banner_video" : " "%>">
+        <% banner_image_path = banner.attachments.first.try(:image).try(:url, :banner) || "site/banner.jpg" -%>
+        <%= link_to image_tag(banner_image_path), static_page(banner) %>
       </li>
     <% end -%>
   </ul>
-</div><!--end_banners-->
-  
-<%=raw @page.content %>
+</div>
 
-<%= javascript_tag do %>
-  $(function() {
-      $('#slider').nivoSlider({
-        effect:"fade",
-        animSpeed:500,
-        pauseTime:3000,
-        startSlide:0,
-        directionNav:true,
-        directionNavHide:true,
-        controlNav:true,
-        controlNavThumbs:false,
-        controlNavThumbsFromRel:true,
-        keyboardNav:true,
-        pauseOnHover:true,
-        manualAdvance:false
-    });
-  });
-<% end %>
+<div class="best_offers">
+  <h3>Лучшие предложения</h3>
+  <ul class="list_products">
+    <% root_category = Category.find_by_link('zafran') -%>
+    <% root_category.children.visible.each_with_index do |category, i| -%>
+      <% goods = category.goods.visible.sort{|a,b| a <=> b} %>
+      <li class="<%= i==0 ? "first" : "" %>">
+        <table>
+          <tr>
+            <td>
+              <% attachment = category.attachments.main.first || 
+                              category.attachments.first -%>
+              <% category_image_path = attachment.try(:image).try(:url, :big) || "site/product1.jpg" -%>
+              <%= link_to image_tag(category_image_path, :alt => category.name), category_url(:path => category.url_path) %>
+            </td>
+          </tr>
+        </table>
+
+        <span class="title_prod">
+          <%= link_to category.name, category_url(:path => category.url_path) %>
+        </span>
+
+        <div class="product_opt">
+          <%= form_tag cart_add_good_path, :id => "submit_form_#{category.id}", :method => :post do %>            
+            <div class="weight_prod">
+              <label><%=t "good.variants.weight" %></label><br />
+              <%= select_tag 'good_id', options_for_select(goods.map { |g| [g.name, g.id] }), :class => "weight_select", :rel => category.id %>
+          	</div>
+            <div class="quantity_prod">
+              <label>Кол-во</label><br />
+              <%= text_field_tag "count", "1", :class => "standart_inptxt" %>
+            </div>
+          <% end %>
+        </div>
+
+        <span class="price" id="category_<%= category.id %>_price"><%= number_to_currency(0) %></span>
+        <% goods.each do |good| -%>
+          <span style="display: none;" id="good_<%= good.id %>_price"><%= number_to_currency(good.price) %></span>          
+        <% end -%>
+        <div class="prod_buttons">
+          <%= link_to "Подробнее", category_url(:path => category.url_path) %>
+          <%= link_to "В корзину", "#?w=365", :class => "cart_add_good poplight violet_btn", :rel => "popup1", :'data-form-id' => category.id %>
+        </div>
+      </li>
+    <% end -%>
+  </ul>
+</div>
+
+<%=raw @page.content %>

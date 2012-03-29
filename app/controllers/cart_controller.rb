@@ -1,6 +1,6 @@
 class CartController < ApplicationController
-  before_filter :authenticate_customer!,
-                :except => [:add_good]
+  #before_filter :authenticate_customer!,
+  #              :except => [:add_good]
 
   def index
     load_cart
@@ -17,15 +17,18 @@ class CartController < ApplicationController
     if @good && @good.category.visible
       session[:cart][@good.id] ||= {}
       session[:cart][@good.id][:good_id] = @good.id
-      session[:cart][@good.id][:variant] = params[:variant]
+      #session[:cart][@good.id][:variant] = params[:variant]
       session[:cart][@good.id][:count] ||= 0
-      session[:cart][@good.id][:count] += 1
+      session[:cart][@good.id][:count] += params[:count].to_i
       session[:cart][@good.id][:price] = @good.price
     end
     
     session_cart_recalculate(false)
     
-    redirect_to request.referrer
+    #redirect_to request.referrer
+    render :json => {
+      :cart_html => render_to_string(:partial => 'cart/mini')
+    }
   end
 
   def remove_good
@@ -84,6 +87,7 @@ protected
   def session_cart_recalculate(use_params = false)
     session[:cart_count] = 0
     session[:cart_price] = 0
+    session[:cart_weight] = 0
     
     session[:cart].each { |good_id, cart_record|
       if use_params
@@ -94,6 +98,7 @@ protected
       
       session[:cart_count] += 1
       session[:cart_price] += cart_record[:price] * new_count
+      session[:cart_weight] += Good.find(good_id).name.to_i * new_count
       
       session[:cart][good_id][:count] = new_count
     }

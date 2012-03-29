@@ -1,65 +1,28 @@
 @charset "utf-8";
 /* CSS Document */
-#wrapper{
-width:expression(document.body.clientWidth < 1000? "1000px" : document.body.clientWidth > 1004? "1004px" : "auto"); /* для ie*/}
-.feedback_block, input.blue_inp_bg, .slider_wrapper, .banners ul li, a.blue_button, ul.list_product li{
-	behavior: url(/assets/site/PIE.htc); /* учим IE border-radius */}
-input[type="text"]{
-	line-height:24px;}
-input.standart_inptxt{
-	line-height:23px;}
-input.text_inp19px{
-	line-height:19px;}
-input.blue_inp_bg{
-	border:none\0/;}
-.feedback_block input.fb_inp{
-	line-height:24px;}
-.search .search_inp{
-	line-height:19px;}
-a.blue_button{
-	padding-top:8px;
-	height:20px;}
-a.blue_button span{
-	float:left;
-	background-position:0 0;}
-.quantity_prod input{
-	line-height:22px;}
-.delivery textarea{
-	*float:left;}
-.delivery input.blue_inp_bg, .registration input.blue_inp_bg, .password_recovery input.blue_inp_bg, .fd_form input.blue_inp_bg{
-	*padding:0px;
-	line-height:14px;}
-.login_memberarea input.blue_inp_bg{
-	*padding:0 13px;
-	line-height:14px;}
-.security_code, .yellow_form label{
+
+.menu ul li a, .menu ul#jsddm li div, .banners ul li, .banners ul li img, a.violet_btn, .popup_block, input.violet_submit, a.red_btn{
+	behavior: url(js/PIE.htc); /* учим IE border-radius */}
+
+.social_settings ul li, .banners ul li, ul.list_products li, .product_opt label, a.violet_btn, .foot_menu ul li, ul.list_photo li, .product_descr .price, .delete_product a, .photo_block, .title_product, .weight_product, .price_cart, .quantity_product, .delete_product, a.red_btn, .delivery label, .adress ul li{
 	zoom:1; /* для ие */
 	*display:inline; /* для ие */
-	_overflow:hidden; }
+	_overflow:hidden; /* для ие6, чтобы не умещающиеся в нем элементы не раздвигали блок */}
 
-*html .feedback_block{
-	height:200px;}
-*html .checkbox{
-	margin-top:-2px;}
-*html .search{
-	padding-top:7px;
-	height:32px;}
-*html .selectBox-dropdown .selectBox-arrow{
-	height:23px;}
-*html a.blue_button span{
-	float:left;
-	background-position:0 0;}
-*html ul.compare_list{
-	width:731px;}
-*html .sorting .selectBox-dropdown .selectBox-arrow{
-	height:21px !important;}
-*html .login_memberarea input.blue_inp_bg{
-	margin-left:135px;}
-*html .registration input.blue_inp_bg{
-	margin-left:138px;}
-*html .password_recovery input.blue_inp_bg{
-	margin-left:23px;}
-*html .adv_search input.standart_inptxt{
-	width:226px;}
-*html p.fb_checkbox label{
-	padding-top:1px;}
+input.standart_inptxt{
+	border:1px solid #d4d0c8;
+	height:19px;
+	line-height:19px;}
+
+
+.menu ul#jsddm li ul li{
+	*height:20px;}
+
+*html .menu ul li a{
+	line-height:21px;}
+*html .menu ul#jsddm li div{
+	display:none;}
+*html .banners ul{
+	margin-left:-8px;}
+*html .banners ul li{
+	margin-left:8px;}

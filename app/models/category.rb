@@ -73,5 +73,9 @@ class Category < ActiveRecord::Base
   def status
     self.visible ? VISIBLE : INVISIBLE
   end
+  
+  def attachment_styles
+    { :big => "200x200", :small => "58x58", :cart => "81x81" } 
+  end
 
 end

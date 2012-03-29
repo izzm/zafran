@@ -1,37 +1,56 @@
-<% content_for :page_javascript do %>
-  $(document).ready(function() {
-    $('.sort_link').click(function() {
-      var $this = $(this);
-      var $form = $this.closest('form');
-      var $select = $form.find('.sort_type');
-      var $hidden = $form.find('.meta_sort_hidden');
-
-      $hidden.val($select.val() + '.' + $this.attr('rel'));
-      $form.submit();
-      return false;
-    });
-
-    $('.sort_type').change(function() {
-      var $select = $(this);
-      var $form = $select.closest('form');
-      var $hidden = $form.find('.meta_sort_hidden');
-
-      $hidden.val($select.val() + '.asc');
-      $form.submit();
-    });
-
-    //$('.sort_type option[value=<%= @search_param %>]').attr('selected', 'selected');
-  });
-<% end %>
-
-
-<div class="catalog">
-  <%=raw @category.description %>
-  <%= render :partial => 'paginator', :locals => {:nobg => false} %>
-
-  <ul class="list_product">
-    <%= render :partial => 'good', :locals => {:category => @category}, :collection => @search.all %>
-  </ul>
-
-  <%= render :partial => 'paginator', :locals => {:nobg => true} %>
-</div><!--end_catalog-->
+<div class="product">
+  <span class="title_prod"><%= @category.name %></span>
+  
+  <div class="product_photo">
+    <table class="big_photo">
+      <tr>
+        <td>
+          <% attachment = @category.attachments.main.first || 
+                          @category.attachments.first -%>
+          <% category_image_path = attachment.try(:image).try(:url, :big) || "site/product1.jpg" -%>
+          <% category_image_path_orig = attachment.try(:image).try(:url, :original) || "site/product1.jpg" -%>
+          <%= link_to image_tag(category_image_path, :id => "main_category_image"), category_image_path_orig %>
+        </td>
+      </tr>
+    </table>
+    
+    <ul class="list_photo">
+      <% @category.attachments.each do |attachment| -%>
+        <li>
+          <%= link_to image_tag(attachment.image.url(:small)), attachment.image.url(:original), 
+                      :class => "small_category_image_link", 
+                      :rel => attachment.image.url(:big) %>
+        </li>
+      <% end -%>
+    </ul>
+  </div>
+  
+  <div class="product_descr">
+    <div class="top_descr">
+      <div class="product_opt">
+        <%= form_tag cart_add_good_path, :id => "submit_form", :method => :post do %>            
+          <div class="weight_prod">
+            <label><%=t "good.variants.weight" %></label><br />
+            <%= select_tag 'good_id', options_for_select(@goods.sort{|a,b| a<=>b}.map { |g| [g.name, g.id] }), :class => "weight_select", :rel => @category.id %>
+        	</div>
+          <div class="quantity_prod">
+            <label>Кол-во</label><br />
+            <%= text_field_tag "count", "1", :class => "standart_inptxt" %>
+          </div>
+        <% end %>
+      </div>
+      
+      <p>
+        <span class="price" id="category_<%= @category.id %>_price"><%= number_to_currency(0) %></span>
+        <% @goods.each do |good| -%>
+          <span style="display: none;" id="good_<%= good.id %>_price"><%= number_to_currency(good.price) %></span>          
+        <% end -%>
+        <%= link_to "В корзину", "#?w=365", :class => "poplight violet_btn", :rel => "popup1" %>
+      </p>
+      
+      <span class="info_txt">При заказе от 2600 рублей (10 грамм)<br />доставка бесплатно.</span>
+    </div>
+    
+    <%=raw @category.description %>
+  </div>
+</div><!--.product-->

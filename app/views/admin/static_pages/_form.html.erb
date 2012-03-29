@@ -16,7 +16,9 @@
 
   <%= f.inputs :control do %>
     <%= f.input :link %>
+    <%= f.input :redirect_url, :as => :string %>
     <%= f.input :visible %>
+    <%= f.input :show_in_nav %>
   <% end %>
   
   <%= f.buttons %>

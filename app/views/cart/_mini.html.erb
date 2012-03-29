@@ -1,0 +1,9 @@
+<div class="cart_bottom">
+	<h3>Ваш заказ</h3>
+	<% pl = Russian.p(session[:cart_count], 'позиция', 'позиции', 'позиций') -%>
+  <%= link_to "#{session[:cart_count]} #{pl}", cart_path %><br />
+  на сумму <%= link_to number_to_currency(session[:cart_price]), cart_path %>
+  <p>
+    <%= link_to "Оформить заказ", cart_path %>
+  </p>
+</div>

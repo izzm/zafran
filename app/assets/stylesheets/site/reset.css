@@ -60,4 +60,6 @@ input, select, button, textarea {
 label, input[type="button"], input[type="submit"], button {
 	cursor: pointer; /* курсор в виде руки для всех кликабельных элементов форм */
 }
+img{
+	border:none;}
 /* --------------- /базовые настройки ---------*/

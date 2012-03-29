@@ -24,6 +24,9 @@ class Good < ActiveRecord::Base
 
   #default_scope order('position ASC')
   scope :visible, where(:visible => true)
+  scope :sorted, order("name asc")
+  scope :site, visible.sorted
+  
   scope :random, lambda { |cnt|
     order('random()').limit(cnt)
   }
@@ -58,9 +61,7 @@ class Good < ActiveRecord::Base
 
   def variants
     {
-      "color" => [],
-      "cloth" => [],
-      "size" => []
+      "weight" => []
     }.merge(super || {})
   end
 
@@ -79,7 +80,7 @@ class Good < ActiveRecord::Base
   end
   
   def attachment_styles
-    { :preview => "219x165", :big => "350x263", :small => "66x66", :cart => "101x80", :compare => "184x111" } 
+    { :big => "200x200", :small => "58x58", :cart => "81x81" } 
   end
 
   def status
