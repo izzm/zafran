@@ -1,0 +1,9 @@
+<% pickup_page = StaticPage.find_by_url_path('settings/pickup') -%>
+<% if !pickup_page.nil? && pickup_page.visible -%>
+  <div class="pickup">
+    <h3>Самовывоз</h3>
+    Вы можете забрать свой заказ по следующим адреса:
+    <%=raw pickup_page.try(:content) %><br />
+    <p class="link_block"><a href="#" class="violet_btn btn_big">Отправить</a></p>
+  </div>
+<% end -%>

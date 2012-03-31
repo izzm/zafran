@@ -1,0 +1,58 @@
+<div class="cart_item">
+	<h3>Ваша корзина</h3>
+	<%= form_tag cart_recalculate_path, :method => :post, :id => 'cart_form' do %>
+    <ul>
+      <li class="cart_title">
+        <div class="photo_block">Фото</div>
+        <span class="title_product">Название</span>
+        <span class="weight_product">Вес</span>
+        <span class="price_cart">Цена, руб.</span>
+        <span class="quantity_product">Кол-во</span>
+        <span class="delete_product">Удалить</span>
+      </li>
+      
+      <% @goods.each do |good| -%>
+        <li>
+          <div class="photo_block">
+            <table>
+              <tr>
+                <td>
+                  <% attachment = good.category.attachments.main.first || 
+                                  good.category.attachments.first -%>
+                  <% category_image_path = attachment.try(:image).try(:url, :small) || "site/small_photo3.jpg" -%>
+                  <%= link_to image_tag(category_image_path), category_path(:path => good.category.url_path) %>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <span class="title_product">
+            <%= link_to good.category.name, category_path(:path => good.category.url_path) %>
+          </span>
+          <span class="weight_product"><%= good.name %></span>
+          <span class="price_cart"><%= number_to_currency(good.price) %></span>
+          <span class="quantity_product">
+            <%= text_field_tag "counts[#{good.id}]", session[:cart][good.id][:count], :class => "standart_inptxt" %>
+          </span>
+          <span class="delete_product">
+            <%= link_to "", cart_remove_good_path(:good_id => good.id), :method => :post %>
+          </span>
+        </li>
+      <% end -%>
+      
+      <div class="intotal">
+      	<p>
+      	  <b>Итого:</b>
+      	  <span class="priority1"><%= session[:cart_weight] %> грамм</span> на сумму <span class="priority1"><%= number_to_currency(session[:cart_price]) %></span>
+      	</p>
+        <p>
+          <% if session[:cart_weight] > Order::DELIVERY_LIMIT -%>
+            <b>Доставка:</b> <span class="priority1"><%= (3..5).include?(session[:cart_weight]) ? number_to_currency(250) : 'бесплатно' %></span>
+          <% end -%>
+        </p>
+        <p>
+          <span class="priority1"><%= link_to "Пересчитать", "#", :id => 'cart_link' if @goods.count > 0 %></span>
+        </p>
+      </div>
+    </ul>
+  <% end %>
+</div><!--.cart_item-->

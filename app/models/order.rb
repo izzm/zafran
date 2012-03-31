@@ -11,6 +11,7 @@ class Order < ActiveRecord::Base
   CANCELED = "canceled"
 
   STATES = [NEW_ORDER, IN_PROGRESS, COMPLETE]
+  DELIVERY_LIMIT = 2
 
   default_scope order('created_at desc')
  

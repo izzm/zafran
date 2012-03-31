@@ -28,7 +28,7 @@
   <div class="product_descr">
     <div class="top_descr">
       <div class="product_opt">
-        <%= form_tag cart_add_good_path, :id => "submit_form", :method => :post do %>            
+        <%= form_tag cart_add_good_path, :id => "submit_form_#{@category.id}", :method => :post do %>            
           <div class="weight_prod">
             <label><%=t "good.variants.weight" %></label><br />
             <%= select_tag 'good_id', options_for_select(@goods.sort{|a,b| a<=>b}.map { |g| [g.name, g.id] }), :class => "weight_select", :rel => @category.id %>
@@ -45,7 +45,7 @@
         <% @goods.each do |good| -%>
           <span style="display: none;" id="good_<%= good.id %>_price"><%= number_to_currency(good.price) %></span>          
         <% end -%>
-        <%= link_to "В корзину", "#?w=365", :class => "poplight violet_btn", :rel => "popup1" %>
+        <%= link_to "В корзину", "#?w=365", :class => "cart_add_good poplight violet_btn", :rel => "popup1", :'data-form-id' => @category.id %>
       </p>
       
       <span class="info_txt">При заказе от 2600 рублей (10 грамм)<br />доставка бесплатно.</span>

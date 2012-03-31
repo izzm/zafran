@@ -36,7 +36,7 @@ function show_popup($button, data) {
 	var popWidth = dim[0].split('=')[1]; //Gets the first query string value
 
 	//Fade in the Popup and add close button
-	$('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="/assets/site/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>');
+	$('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close removable"><img src="/assets/site/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>');
 	
 	//Define margin for center alignment (vertical + horizontal) - we add 80 to the height/width to accomodate for the padding + border width defined in the css
 	var popMargTop = ($('#' + popID).height() + 80) / 2;
@@ -63,7 +63,6 @@ $(document).ready(function() {
 });
 document.onclick = jsddm_close;
 
-//redy
 $(document).ready(function(){
   
   $(".weight_select").change(function(){
@@ -100,7 +99,7 @@ $(document).ready(function(){
     var $this = $(this);
     $('.popup_block, #fade').fadeOut(function() {
       //if(!$this.hasClass('noclose')) {
-			  $('#fade').remove();
+			  $('#fade, .removable').remove();
 		  //}
 	  }); //fade them both out
 		
