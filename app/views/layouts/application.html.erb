@@ -15,16 +15,17 @@
   <%= javascript_tag do %>
     <%= yield :page_javascript %>
   <% end %>
-  
+<!--
   <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?49"></script>
 
   <script type="text/javascript">
     VK.init({apiId: 2867553, onlyWidgets: true});
   </script>
-  
+-->  
   <%= csrf_meta_tags %>
 </head>
 <body>
+<!--
   <div id="fb-root"></div>
   <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -33,7 +34,7 @@
     js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
-  
+-->  
   
   <span class="line1"></span><span class="line2"></span>
   <div id="page">
@@ -114,6 +115,20 @@
         <div class="social_settings">
           <ul>
             <li>Вам нравится шафран?</li>
+            <li style="width: 140px">
+              <!-- AddThis Button BEGIN -->
+              <div class="addthis_toolbox addthis_default_style " addthis:url="<%= root_url %>">
+              <a class="addthis_button_preferred_1"></a>
+              <a class="addthis_button_preferred_2"></a>
+              <a class="addthis_button_preferred_3"></a>
+              <a class="addthis_button_preferred_4"></a>
+              <a class="addthis_button_compact"></a>
+              <a class="addthis_counter addthis_bubble_style"></a>
+              </div>
+              <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f5f42122541b536"></script>
+              <!-- AddThis Button END -->
+            <li>
+<!--            
             <li>
               <div class="fb-like" data-href="http://zafran.ru/" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div>
             </li>
@@ -123,6 +138,7 @@
                 VK.Widgets.Like("vk_like", {type: "button"});
               </script>
             </li>
+-->
           </ul>
         </div>
           	

@@ -33,8 +33,9 @@
   <% if session[:cart_weight] > Order::DELIVERY_LIMIT -%>
     <%= render :partial => 'russian_delivery' %>
     <%= render :partial => 'moscow_delivery' %>
+  <% else -%>
+    <%= render :partial => 'pickup' %>
   <% end -%>
-  <%= render :partial => 'pickup' %>
 <% end -%>
 
 <% if false -%>
