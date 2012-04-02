@@ -2,6 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <%= display_meta_tags :site => 'Zafran' %>
+  <!-- facebook OG meta -->
+  <meta property="og:title" content="Zafran.ru" />
+  <meta property="og:description" content="Сайт посвященный шафрану. Здесь вы можете узнать про уникальные свойства шафрана и приобрести эту удивительную специю." />
+  <meta property="og:url" content="<%= root_url %>" />
+  <meta property="og:image" content="<%= image_path "site/zafran_social_pic.jpg" %>" />
+  <meta property="og:site_name" content="Шафран" />
+  <meta property="fb:admins" content="100001286098583" />
+  <!-- -->
+  
   <link rel="icon" href="<%= image_path 'site/favicon.ico' %>" type="image/x-icon">
   <%= stylesheet_link_tag    "application" %>
   <!--[if lte IE 6]>

@@ -398,7 +398,9 @@ ul.list_products li table tr td{
 	margin-top:9px;}
 .prod_buttons{
 	text-align:center;
-	padding-top:9px;}
+	padding-top:9px;
+	font-size: 12px;
+}
 .prod_buttons a{
 	vertical-align:middle;
 	margin:0 5px;}
