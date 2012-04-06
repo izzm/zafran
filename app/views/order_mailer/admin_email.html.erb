@@ -1,0 +1,25 @@
+<p>
+  Номер заказа: <%= @order.number %>
+</p>
+
+<p>
+Информация о заказе:
+<table>
+  <tr>
+    <th>НАЗВАНИЕ</th> 
+    <th>ВАРИАНТ ТОВАРА</th>
+    <th>КОЛИЧЕСТВО</th>
+    <th>СТОИМОСТЬ</th>
+  </tr>
+
+  <% @order.order_goods.each do |item| -%>
+    <tr>
+      <td><%= item.good.articul %></td>
+      <td><%= item.good.category %></td>
+      <td><%= item.good %></td>
+      <td><%= item.count %></td>
+      <td><%= item.price * item.count %></td>
+    </tr>
+  <% end -%>
+</table>
+</p>
