@@ -49,12 +49,24 @@ ActiveAdmin.register Order do
     f.inputs :info do
       f.input :delivery_type, :as => :select, 
         :collection => {
-          I18n.t('active_admin.status_tags.order.delivery') => 'delivery', 
-          I18n.t('active_admin.status_tags.order.manual') =>'manual'
+          I18n.t('active_admin.status_tags.order.delivery_moscow') => 'delivery_moscow', 
+          I18n.t('active_admin.status_tags.order.delivery_russia') => 'delivery_russia', 
+          I18n.t('active_admin.status_tags.order.pickup') =>'pickup'
         }
-      f.input :address
       f.input :discount
+      f.input :delivery_price
       f.input :comment
+    end
+    
+    f.inputs :address do
+      f.inputs :address_index
+      f.inputs :address_city
+      f.inputs :address_region
+      f.inputs :address_street
+      f.inputs :address_house
+      f.inputs :address_part
+      f.inputs :address_build
+      f.inputs :address_flat
     end
 
     f.inputs :control do

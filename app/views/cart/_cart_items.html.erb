@@ -45,9 +45,7 @@
       	  <span class="priority1"><%= session[:cart_weight] %> грамм</span> на сумму <span class="priority1"><%= number_to_currency(session[:cart_price]) %></span>
       	</p>
         <p>
-          <% if session[:cart_weight] > Order::DELIVERY_LIMIT -%>
-            <b>Доставка:</b> <span class="priority1"><%= (3..5).include?(session[:cart_weight]) ? number_to_currency(250) : 'бесплатно' %></span>
-          <% end -%>
+          <b>Доставка:</b> <span class="priority1"><%= order_delivery_price == 0 ? 'бесплатно' : number_to_currency(order_delivery_price) %></span>
         </p>
         <p>
           <span class="priority1"><%= link_to "Пересчитать", "#", :id => 'cart_link' if @goods.count > 0 %></span>

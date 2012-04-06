@@ -1,7 +1,8 @@
 class CartController < ApplicationController
   #before_filter :authenticate_customer!,
   #              :except => [:add_good]
-
+  helper_method :order_delivery_price
+  
   def index
     load_cart
     @order = Order.new
@@ -60,7 +61,7 @@ class CartController < ApplicationController
 
     @order.order_goods_attributes = session[:cart]
     @order.total_price = session[:cart_price]
-    @order.state = Order::NEW_ORDER
+    @order.delivery_price = order_delivery_price
 
     if @order.save
       flash[:order_id] = @order.id
@@ -88,6 +89,10 @@ class CartController < ApplicationController
   end
   
 protected
+  def order_delivery_price
+    Order.calculate_delivery_price(session[:cart_price], session[:cart_weight])
+  end
+
   def session_cart_recalculate(use_params = false)
     session[:cart_count] = 0
     session[:cart_price] = 0

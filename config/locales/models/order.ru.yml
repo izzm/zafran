@@ -12,10 +12,17 @@ ru:
         created_at: "Дата заказа"
         total_price: "Общая стоимость"
         delivery_type: "Тип доставки"
-        address: "Адрес доставки"
         comment: "Комментарий покупателя"
         canceled: "Заказ отменён"
         discount: "Скидка (%)"
+        address_index: "Почтовый индекс"
+        address_city: "Город (населенный пункт)"
+        address_region: "Регион"
+        address_street: "Улица"
+        address_house: "Дом"
+        address_part: "Корпус"
+        address_build: "Строение"
+        address_flat: "Квартира (офис)"
     actions:
       order:
         add_good: "Добавить товар"
@@ -54,6 +61,10 @@ ru:
       unknown_order_state: "Статус не проставлен"
 
   formtastic:
+    titles:
+      order: "Состав заказа"
+      process: "Даты выполнения"
+      address: "Адрес доставки"
     labels:
       order:
         note: "Примечание"

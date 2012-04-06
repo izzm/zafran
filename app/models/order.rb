@@ -12,7 +12,10 @@ class Order < ActiveRecord::Base
   CANCELED = "canceled"
 
   STATES = [NEW_ORDER, IN_PROGRESS, COMPLETE]
-  DELIVERY_LIMIT = 2
+  DELIVERY_LIMIT_WEIGHT = 2
+  DELIVERY_FREE_LIMIT_WEIGHT = 5
+  DELIVERY_FREE_LIMIT_PRICE = 1400
+  DELIVERY_DEFAULT_PRICE = 250
 
   default_scope order('created_at desc')
  
@@ -28,8 +31,11 @@ class Order < ActiveRecord::Base
     joins(:goods).where(["goods.articul ilike ?", '%'+articul+'%'])
   }
   search_methods :articul_contains
-
-  before_create :assign_number, :set_new_state
+  
+  before_validation :state, :on => :create do
+    set_new_state()
+  end
+  before_create :assign_number
   after_create :set_customer_first_order
 
   validates :delivery_type, :presence => true
@@ -82,6 +88,19 @@ class Order < ActiveRecord::Base
   
   def total_price_with_discount
     self.total_price * (1 - (self.discount.to_i / 100.0))
+  end
+  
+  def self.calculate_delivery_price(price, weight)
+    if weight > DELIVERY_LIMIT_WEIGHT
+      if weight >= DELIVERY_FREE_LIMIT_WEIGHT &&
+         price >= DELIVERY_FREE_LIMIT_PRICE
+         0
+      else
+        DELIVERY_DEFAULT_PRICE
+      end
+    else
+      nil
+    end
   end
 
 protected

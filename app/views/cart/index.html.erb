@@ -41,7 +41,7 @@
       <%= @order.errors.full_messages.join(", ") %>
     </div>
   <% end -%>
-  <% if session[:cart_weight] > Order::DELIVERY_LIMIT -%>
+  <% unless order_delivery_price.nil? -%>
     <%= render :partial => 'russian_delivery' %>
     <%= render :partial => 'moscow_delivery' %>
   <% else -%>
