@@ -11,7 +11,6 @@
 Информация о заказе:
 <table>
   <tr>
-    <th>АРТИКУЛ</th>
     <th>НАЗВАНИЕ</th> 
     <th>ВАРИАНТ ТОВАРА</th>
     <th>КОЛИЧЕСТВО</th>
@@ -21,10 +20,8 @@
   <% @order.order_goods.each do |item| -%>
     <tr>
       <td><%= item.good.articul %></td>
+      <td><%= item.good.category %></td>
       <td><%= item.good %></td>
-      <td><%=raw item.variant.map{ |variant_type, variant|
-        content_tag :nobr, "#{t("good.variants.#{variant_type}")}: #{variant}"
-      }.join(", ") %></td>
       <td><%= item.count %></td>
       <td><%= item.price * item.count %></td>
     </tr>
@@ -35,6 +32,6 @@
 <p>В течение рабочего дня наши менеджеры свяжутся с Вами для уточнения деталей.</p>
 
 <p>
-  Ваш интернет-магазин мебели<br>
-  <%= link_to image_tag('site/logo_email.jpg', :alt => "Oltis"), root_url %>
+  Ваш интернет-магазин 
+  <%= link_to "Zafran", root_url %>
 </p>

@@ -36,8 +36,8 @@ ru:
       unknown_order_state: "Статус неизвестен"
 
   customer_email:
-    subject: Интернет-магазин Oltis-Lux.com
-    order_subject: "Интернет-магазин мебели OLTIS - спасибо за  Ваш заказ"
+    subject: Интернет-магазин Zafran.ru
+    order_subject: "Интернет-магазин Zafran.ru - спасибо за  Ваш заказ"
     not_email_present: ""
     delivery_success:
       callback: Спасибо за Ваше сообщение. Мы перезвоним Вам в ближайшее время
@@ -45,4 +45,4 @@ ru:
     delivery_error: Ошибка при отправке. Попробуйте позднее
 
   admin_email:
-    subject: Сообщение обратной связи
+    subject: Заказ в интернет-магазине Zafran.ru

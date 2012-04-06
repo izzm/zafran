@@ -17,6 +17,6 @@ class OrderMailer < ActionMailer::Base
     @order = order
     
     mail :to => "vladislav.izoria@gmail.com",
-         :subject => I18n.t('customer_email.order_subject')
+         :subject => I18n.t('admin_email.order_subject')
   end
 end
