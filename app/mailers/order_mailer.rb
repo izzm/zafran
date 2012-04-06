@@ -1,5 +1,5 @@
 class OrderMailer < ActionMailer::Base
-  default from: "orders@oltis-lux.com"
+  default from: "Zafran <notifier@zafran.ru>"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -10,6 +10,13 @@ class OrderMailer < ActionMailer::Base
     @order = order
 
     mail :to => customer.email,
+         :subject => I18n.t('customer_email.order_subject')
+  end
+  
+  def admin_email(order)
+    @order = order
+    
+    mail :to => "vladislav.izoria@gmail.com",
          :subject => I18n.t('customer_email.order_subject')
   end
 end

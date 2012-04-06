@@ -82,8 +82,12 @@ class CartController < ApplicationController
 
       if @order.nil?
         redirect_to cart_path
-      elsif !@order.customer.nil?
-        OrderMailer.customer_email(@order.customer, @order).deliver
+      else
+        unless @order.customer.nil?
+          OrderMailer.customer_email(@order.customer, @order).deliver
+        end
+        
+        OrderMailer.admin_email(@order).deliver        
       end
     end
   end
