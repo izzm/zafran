@@ -58,14 +58,14 @@ module RailsShop
     config.assets.version = '1.0'
     config.assets.precompile += %w[active_admin.css active_admin.js]
 
-    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-    config.action_mailer.asset_host = 'localhost:3000'
+    config.action_mailer.default_url_options = { :host => 'zafran-ru.1gb.ru' }
+    config.action_mailer.asset_host = 'http://zafran-ru.1gb.ru/'
     config.action_mailer.smtp_settings = {
-      :address         => 'mail.1gb.ru',
+      :address         => 'smtp-18.1gb.ru',
       :port            => 25,
-      :domain          => 'oltis-lux.com',
-      :user_name       => 'u248736',
-      :password        => '8132ed26',
+      :domain          => 'zafran.ru',
+      :user_name       => 'u303638',
+      :password        => '3500c84590',
       :authentication  => :login
     } 
     config.action_mailer.delivery_method = :smtp

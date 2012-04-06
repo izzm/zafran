@@ -4,7 +4,8 @@ class Order < ActiveRecord::Base
   has_many :order_goods, :dependent => :destroy
   has_many :goods, :through => :order_goods
   accepts_nested_attributes_for :order_goods
-
+  accepts_nested_attributes_for :customer
+  
   NEW_ORDER = "new_orders"
   COMPLETE = "complete"
   IN_PROGRESS = "in_progress"
@@ -32,9 +33,18 @@ class Order < ActiveRecord::Base
   after_create :set_customer_first_order
 
   validates :delivery_type, :presence => true
-  validates :address, :length => { :maximum => 255 }
+  
+  validates :address_index, :length => { :maximum => 255 }
+  validates :address_city, :length => { :maximum => 255 }
+  validates :address_region, :length => { :maximum => 255 }
+  validates :address_street, :length => { :maximum => 255 }
+  validates :address_house, :length => { :maximum => 255 }
+  validates :address_part, :length => { :maximum => 255 }
+  validates :address_build, :length => { :maximum => 255 }
+  validates :address_flat, :length => { :maximum => 255 }
+
   validates :comment, :length => { :maximum => 1000 }
-  validates :customer, :presence => true
+  validates :customer, :presence => true, :if => proc { |obj| obj.delivery_type != 'pickup' }
   validates :discount, :numericality => {
     :greater_than_or_equal_to => 0, 
     :less_than_or_equal_to    => 100
@@ -88,14 +98,16 @@ protected
 
   def delivery_type_code
     case self.delivery_type
-      when 'delivery'
-        "dl"
+      when 'delivery_moscow'
+        "dlm"
+      when 'delivery_russia'
+        "dlr"
       else
         "sm"
     end
   end
 
   def set_customer_first_order
-    self.customer.set_first_order! self
+    self.customer.set_first_order! self unless self.customer.nil?
   end
 end

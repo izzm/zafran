@@ -1,36 +1,82 @@
 <div class="delivery" id="russia_delivery">
 	<h3>Доставка</h3>
-    <form action="">
-      <div class="select_region"><a href="#" class="violet_btn btn_big" id="switch_delivery_to_moscow">По Москве</a><a href="#" class="red_btn btn_big inactive_btn">По России</a></div>
+	<%= form_for @order, :url => cart_purchase_path, :html => {:id => "purchase_form_delivery_russia"} do |f| %>
+    <%= hidden_field 'order', 'delivery_type', :value => 'delivery_russia' %>
       
+    <div class="select_region"><a href="#" class="violet_btn btn_big" id="switch_delivery_to_moscow">По Москве</a><a href="#" class="red_btn btn_big inactive_btn">По России</a></div>
+    
     <p>Доставка осуществляется наложенным платежом почтой России, оплата при получени на почте. Примерный срок доставки 3-10 дней в зависимости от дальности региона. Для оформления заказа заполните приведенную ниже форму.</p>
-    <div class="contact_info">
-	<h3>Контактная информация</h3>
-    	<p><label>ФИО получателя<span>*</span></label><br /><input type="text" name="" value="Иванов Иван Иванович" class="standart_inptxt" onclick="if(this.value=='Иванов Иван Иванович'){this.value='';}" onblur="if(this.value==''){this.value='Иванов Иван Иванович';}" onkeydown="setcolor(this,'#000')"/></p>
-        <p><label>Телефон</label><br /><input type="text" name="" value="+7 (495) 549-09-95" class="standart_inptxt" onclick="if(this.value=='+7 (495) 549-09-95'){this.value='';}" onblur="if(this.value==''){this.value='+7 (495) 549-09-95';}" onkeydown="setcolor(this,'#000')"/></p>
-        <p><label>Email<span>*</span></label><br /><input type="text" name="" value="name@example.ru" class="standart_inptxt" onclick="if(this.value=='name@example.ru'){this.value='';}" onblur="if(this.value==''){this.value='name@example.ru';}" onkeydown="setcolor(this,'#000')"/></p>
+
+    <%= f.fields_for :customer do |cf| %>
+      <div class="contact_info">
+	      <h3>Контактная информация</h3>
+    	  <p>
+    	    <label>ФИО получателя<span>*</span></label><br />
+    	    <%= cf.text_field 'name', :value => "Иванов Иван Иванович", :class => 'standart_inptxt', :onclick => "if(this.value=='Иванов Иван Иванович'){this.value='';}", :onblur => "if(this.value==''){this.value='Иванов Иван Иванович';}", :onkeydown => "setcolor(this,'#000')" %>
+    	  </p>
+    	
+        <p>
+          <label>Телефон</label><br />
+          <%= cf.text_field 'phone', :value => "+7 (495) 549-09-95", :class => 'standart_inptxt', :onclick => "if(this.value=='+7 (495) 549-09-95'){this.value='';}", :onblur => "if(this.value==''){this.value='+7 (495) 549-09-95';}", :onkeydown => "setcolor(this,'#000')" %>
+        </p>
+                  
+        <p>
+          <label>Email<span>*</span></label><br />
+          <%= cf.text_field 'email', :value => "name@example.ru", :class => 'standart_inptxt', :onclick => "if(this.value=='name@example.ru'){this.value='';}", :onblur => "if(this.value==''){this.value='name@example.ru';}", :onkeydown => "setcolor(this,'#000')" %>
+        </p>
+          
         <span class="info_txt"><span>*</span>Поля отмеченные звездочкой, обязательны для заполнения.</span>
-    </div>
-    <fieldset>	
-    <div class="adress">
-    	<h3>Адрес</h3>
-    	<ul>
-        	<li><label>Индекс</label><br /><input type="text" class="standart_inptxt" /></li>
-            <li><label>Населенный пункт</label><br /><input type="text" class="standart_inptxt" /></li>
-            <li><label>Область</label><br /><input type="text" class="standart_inptxt" /></li>
-            <li><label>Улица</label><br /><input type="text" class="standart_inptxt grid5" /></li>
-            <li><label>Дом</label><br /><input type="text" class="standart_inptxt grid1" /></li>
-            <li><label>Корпус</label><br /><input type="text" class="standart_inptxt grid1" /></li>
-            <li><label>Строение</label><br /><input type="text" class="standart_inptxt grid1" /></li>
-            <li><label>Квартира</label><br /><input type="text" class="standart_inptxt grid1" /></li>
+      </div>
+    <% end %>
+    
+    <fieldset>
+      <div class="adress">
+        <h3>Адрес</h3>
+      	<ul>
+      	  <li>
+      	    <label>Индекс</label><br />
+      	    <%= f.text_field 'address_index', :class => "standart_inptxt" %>
+      	  </li>
+          <li>
+            <label>Населенный пункт</label><br />
+      	    <%= f.text_field 'address_city', :class => "standart_inptxt" %>
+          </li>
+          <li>
+            <label>Область</label><br />
+      	    <%= f.text_field 'address_region', :class => "standart_inptxt" %>
+          </li>
+          <li>
+            <label>Улица</label><br />
+            <%= f.text_field 'address_street', :class => "standart_inptxt grid5" %>
+          </li>
+          <li>
+            <label>Дом</label><br />
+            <%= f.text_field 'address_house', :class => "standart_inptxt grid1" %>
+          </li>
+          <li>
+            <label>Корпус</label><br />
+            <%= f.text_field 'address_part', :class => "standart_inptxt grid1" %>
+          </li>
+          <li>
+            <label>Строение</label><br />
+            <%= f.text_field 'address_build', :class => "standart_inptxt grid1" %>
+          </li>
+          <li>
+            <label>Квартира</label><br />
+            <%= f.text_field 'address_flat', :class => "standart_inptxt grid1" %>
+          </li>
         </ul>
-    </div>
+      </div>
     </fieldset>
+    
     <fieldset>
     	<div class="comment">
-    		<h3>Комментарий</h3>
-            <textarea rows="" cols=""></textarea><input type="submit" value="Отправить" class="violet_submit" />
-        </div>
+    	  <h3>Комментарий</h3>
+        
+        <%= f.text_area 'comment' %>
+        <input type="submit" value="Отправить" class="violet_submit" />
+      </div>
     </fieldset>
-    </form>
+    
+  <% end %>
 </div><!--.delivery-->

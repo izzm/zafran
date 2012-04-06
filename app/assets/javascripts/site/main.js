@@ -26,6 +26,13 @@ function jsddm_canceltimer() {
     }
 }
 
+
+function setcolor(elem,color) {
+ if(elem != null){
+   elem.style.color = color;
+	}
+}
+
 function show_popup($button, data) {
   var popID = $button.attr('rel'); //Get Popup Name
 	var popURL = $button.attr('href'); //Get Popup href to define size

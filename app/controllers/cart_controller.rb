@@ -5,6 +5,7 @@ class CartController < ApplicationController
   def index
     load_cart
     @order = Order.new
+    @order.customer ||= Customer.new
   end
 
   def history
@@ -52,13 +53,16 @@ class CartController < ApplicationController
 
   def purchase
     @order = Order.new(params[:order])
+    
+    if exist_customer = Customer.find_by_email(@order.customer.try(:email))
+      @order.customer = exist_customer
+    end
 
     @order.order_goods_attributes = session[:cart]
     @order.total_price = session[:cart_price]
-    @order.customer = current_customer
     @order.state = Order::NEW_ORDER
 
-    if @order.save!
+    if @order.save
       flash[:order_id] = @order.id
       session_cart_clear
       redirect_to cart_purchase_complete_path
@@ -77,8 +81,8 @@ class CartController < ApplicationController
 
       if @order.nil?
         redirect_to cart_path
-      else
-        OrderMailer.customer_email(current_customer, @order).deliver
+      elsif !@order.customer.nil?
+        OrderMailer.customer_email(@order.customer, @order).deliver
       end
     end
   end

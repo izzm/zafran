@@ -87,13 +87,15 @@ ActiveAdmin.register Order do
       table_for(order.order_goods, :i18n => OrderGood) do |t|
         t.column(:articul) { |item| item.good.articul }
         t.column(:product) { |item|
-          link_to item.good, edit_admin_category_good_path(
-              item.good.category, item.good)
+          link_to item.good.category, edit_admin_category_path(
+              item.good.category)
         }
         t.column(:variant) { |item|
-          raw item.variant.map{ |variant_type, variant|
-            content_tag :nobr, "#{t("good.variants.#{variant_type}")}: #{variant}"
-          }.join(", ")
+          #raw item.variant.map{ |variant_type, variant|
+          #  content_tag :nobr, "#{t("good.variants.#{variant_type}")}: #{variant}"
+          #}.join(", ")
+          link_to item.good, edit_admin_category_good_path(
+              item.good.category, item.good)
         }
         t.column :count
         t.column(:price) { |item| number_to_currency(item.price*item.count) }
@@ -130,7 +132,21 @@ ActiveAdmin.register Order do
           end
         }
         row(:delivery_type) { I18n.t("active_admin.status_tags.order.#{order.delivery_type}") }
-        row :address
+        
+        if order.delivery_type != 'pickup'
+          if order.delivery_type == 'delivery_russia'
+            row :address_index
+            row :address_city
+            row :address_region
+          end
+          
+          row :address_street
+          row :address_house
+          row :address_part
+          row :address_build
+          row :address_flat
+        end
+        
         row :comment
       end
     end
@@ -148,6 +164,6 @@ ActiveAdmin.register Order do
                             admin_customer_path(order.customer) }
       row :created_at
       row :first_order
-    end
+    end if order.customer
   end  
 end

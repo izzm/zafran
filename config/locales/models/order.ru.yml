@@ -42,8 +42,9 @@ ru:
         articul: "Артикул товара"
     status_tags:
       order:
-        delivery: "Доставка"
-        manual: "Самовывоз"
+        delivery_moscow: "Доставка по Москве"
+        delivery_russia: "Доставка по России"
+        pickup: "Самовывоз"
     scopes:
       all_orders: "Все"
       new_orders: "Новые"

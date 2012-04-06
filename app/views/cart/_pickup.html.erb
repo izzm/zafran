@@ -2,8 +2,14 @@
 <% if !pickup_page.nil? && pickup_page.visible -%>
   <div class="pickup">
     <h3>Самовывоз</h3>
-    Вы можете забрать свой заказ по следующим адреса:
-    <%=raw pickup_page.try(:content) %><br />
-    <p class="link_block"><a href="#" class="violet_btn btn_big">Отправить</a></p>
+    <%= form_tag cart_purchase_path, :id => "purchase_form_pickup", :method => :post do %>
+      <%= hidden_field 'order', 'delivery_type', :value => 'pickup' %>
+      
+      Вы можете забрать свой заказ по следующим адреса:
+      <%=raw pickup_page.try(:content) %><br />
+      <p class="link_block">
+        <a href="#" class="violet_btn btn_big order_purchase_button">Отправить</a>
+      </p>
+    <% end -%>
   </div>
 <% end -%>

@@ -22,6 +22,12 @@
     $(".inactive_btn").click(function(){
       return false;
     });
+    
+    $(".order_purchase_button").click(function() {
+      $(this).closest("form").submit();
+      
+      return false;
+    });
   });
 <% end %>
 
@@ -30,85 +36,15 @@
   <%= link_to "Перейти к товарам", root_url %>
 <% else -%>
   <%= render :partial => 'cart_items' %>
+  <% unless @order.errors.empty? -%>
+    <div class="order_errors">
+      <%= @order.errors.full_messages.join(", ") %>
+    </div>
+  <% end -%>
   <% if session[:cart_weight] > Order::DELIVERY_LIMIT -%>
     <%= render :partial => 'russian_delivery' %>
     <%= render :partial => 'moscow_delivery' %>
   <% else -%>
     <%= render :partial => 'pickup' %>
   <% end -%>
-<% end -%>
-
-<% if false -%>
-
-<div class="my_cart">
-  <h2>Мои заказы</h2>
-  <%= form_tag cart_recalculate_path, :method => :post, :id => 'cart_form' do %>
-    <ul>
-      <li class="cart_title">
-        <span class="title_prod">Название</span>
-        <span class="articul_prod">Артикул</span>
-        <span class="photo_prod">Фото</span>
-        <span class="price_prod">Цена</span>
-        <span class="quantity_prod">Кол-во</span>
-        <span class="delet_prod">Удалить</span>
-      </li>
-      
-      <% @goods.each do |good| -%>
-      <li>
-        <div class="border">
-          <span class="title_prod">
-            <%= link_to good.name, good_path(:path => good.category.url_path, :id => good.id) %><br>
-            <span class="variant">
-              <%=raw (session[:cart][good.id][:variant] || {}).map{ |variant_type, variant|
-                content_tag :nobr, "#{t("good.variants.#{variant_type}")}: #{variant}"
-              }.join(", ") -%>
-            </span>
-          </span>
-          <span class="articul_prod"><%= good.articul %></span>
-          <span class="photo_prod"><%= link_to image_tag(good.attachments.first.image.url(:cart)), good_path(:path => good.category.url_path, :id => good.id) %></span>
-          <span class="price_prod"><%= number_to_currency(good.price) %></span>
-          <span class="quantity_prod">
-            <%= text_field_tag "counts[#{good.id}]", session[:cart][good.id][:count] %>
-          </span>
-          <span class="delet_prod">
-            <%= link_to image_tag("site/cart_prod_delet.png"), cart_remove_good_path(:good_id => good.id), :method => :post %>
-          </span>
-        </div>
-      </li>
-      <% end -%>
-      
-      <li class="intotal">
-        <%= link_to "Пересчитать", "#", :id => 'cart_link' if @goods.count > 0 %>Итого: <span class="intotal_price"><%= number_to_currency(session[:cart_price]) %></span>
-      </li>
-    </ul>
-  <% end %>
- 
-  <% if @goods.count > 0 -%>
-  <div class="delivery">
-    <h5>Доставка</h5>
-    
-    <%= form_tag cart_purchase_path, :id => "purchase_form", :method => :post do %>
-      <p>
-        <%= radio_button 'order', 'delivery_type', 'delivery', :class => 'styled' %>
-        <%= label 'order', 'delivery_type_delivery', 'Доставка'  %>
-      </p>
-      <p>
-        <%= label 'order', 'address', 'по адресу:' %><br />
-        <%= text_field 'order', 'address', :class => 'text_inp19px' %>
-      </p>
-      
-      <p class="cent_rad">
-        <%= radio_button 'order', 'delivery_type', 'manual', :class => 'styled' %>
-        <%= label 'order', 'delivery_type_manual', 'Самовывоз'  %>
-      </p>
-
-      <p>
-        <label><strong>Добавить комментарий</strong></label><br />
-        <%= text_area 'order', 'comment' %>
-        <input type="submit" value="Оформить заказ" class="blue_inp_bg" />
-      </p>
-    <% end %>
-  </div>
-  <% end -%>
-</div><!--end_my_cart-->
 <% end -%>

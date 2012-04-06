@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322090352) do
+ActiveRecord::Schema.define(:version => 20120403113525) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -199,9 +199,17 @@ ActiveRecord::Schema.define(:version => 20120322090352) do
     t.datetime "updated_at"
     t.string   "number"
     t.string   "delivery_type"
-    t.string   "address"
     t.text     "comment"
     t.string   "state"
+    t.decimal  "delivery_price", :precision => 8, :scale => 2, :default => 0.0
+    t.string   "address_index"
+    t.string   "address_city"
+    t.string   "address_region"
+    t.string   "address_street"
+    t.string   "address_house"
+    t.string   "address_part"
+    t.string   "address_build"
+    t.string   "address_flat"
   end
 
   add_index "orders", ["checked_out_at"], :name => "index_orders_on_checked_out_at"
