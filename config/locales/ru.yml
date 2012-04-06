@@ -45,4 +45,4 @@ ru:
     delivery_error: Ошибка при отправке. Попробуйте позднее
 
   admin_email:
-    subject: Заказ в интернет-магазине Zafran.ru
+    order_subject: Заказ в интернет-магазине Zafran.ru
