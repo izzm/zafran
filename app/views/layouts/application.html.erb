@@ -167,8 +167,22 @@
   	<span class="line1"></span>
   	<span class="line2"></span>
   	
-  	<div class="footer">
-      <span class="copyright">© Zafran.ru 2009-2012</span>
+  	<div class="footer">      
+      <div style="float:left; margin-top: 20px;">
+        <!--LiveInternet counter--><script type="text/javascript"><!--
+        document.write("<a href='http://www.liveinternet.ru/click' "+
+        "target=_blank><img src='//counter.yadro.ru/hit?t45.8;r"+
+        escape(document.referrer)+((typeof(screen)=="undefined")?"":
+        ";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+        screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+        ";"+Math.random()+
+        "' alt='' title='LiveInternet' "+
+        "border='0' width='31' height='31'><\/a>")
+        //--></script><!--/LiveInternet-->        
+      </div>
+      
+      <span class="copyright" style="margin-left: -30px; height: 20px;">© Zafran.ru 2009-2012</span>
+      
       <div class="contacts">
         Контактный телефон:
         <%=raw StaticPage.find_by_url_path('settings/phone').try(:content) %>
